@@ -1,0 +1,11 @@
+<div class="center">
+    <app-listado (urlOutput)="urlPokemon = $event"></app-listado>
+</div>
+
+@if (urlPokemon !== '') {
+    <div class="center">
+        <app-detalle (urlInput)="urlPokemon" ></app-detalle>
+    </div>
+}
+
+<router-outlet ></router-outlet>
