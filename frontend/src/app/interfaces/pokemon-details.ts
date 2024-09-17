@@ -49,6 +49,11 @@ export type Version = {
     name: string;
 }
 
+export type Sprites = {
+    front_default: string
+    front_shiny: string
+}
+
 export type PokemonDetail = {
     id: number
     name: string;
@@ -60,11 +65,11 @@ export type PokemonDetail = {
     moves: MoveInfo[]
     game_indices: Index[]
     location_area_encounters: string
+    sprites: Sprites
 
     //held_items: HeldItem[]
     
     // species: Species
-    // sprites: Sprites
     // stats: Stat[]
     // types: Type[]
     
