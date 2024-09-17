@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PokemonDetail } from '../interfaces/pokemon-details';
 
 @Component({
   selector: 'app-detalle',
@@ -9,13 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class DetalleComponent {
 
-  @Input() details = {
-    'name': '',
-    'abilities': [{
-      'name': '',
-      'description': ''
-    }]
-  }
+  @Input() details: PokemonDetail | null = null;
 
   
 }
