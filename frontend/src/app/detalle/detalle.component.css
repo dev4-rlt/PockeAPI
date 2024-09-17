@@ -1,3 +1,14 @@
-dd {
-    text-align: justify;
+
+#bounds {
+    border-radius: 10px;
+}
+
+#stats {
+    background-color: rgb(252, 155, 155);
+    border-radius: 10px;
+}
+
+#characteristics {
+    background-color: rgb(151, 226, 226);
+    border-radius: 10px;
 }

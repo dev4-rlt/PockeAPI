@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedPokemons } from '../interfaces/paged-pokemons';
 import { Observable } from 'rxjs';
-import { AbilityDetails, PokemonDetail } from '../interfaces/pokemon-details';
+import { EffectDetails, PokemonDetail } from '../interfaces/pokemon-details';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,9 @@ export class PokeapiService {
     return this.http.get<PokemonDetail>(urlPokemon);
   }
 
-  getAbilityDescription(urlAbility: string): Observable<AbilityDetails> {
-    return this.http.get<AbilityDetails>(urlAbility);
+  getEffectDescription(urlEffect: string): Observable<EffectDetails> {
+    return this.http.get<EffectDetails>(urlEffect);
   }
+
 
 }

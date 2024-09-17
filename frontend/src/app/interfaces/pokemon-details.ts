@@ -8,7 +8,7 @@ export type AbilityInfo = {
     description: string;
 }
 
-export type AbilityDetails = {
+export type EffectDetails = {
     flavor_text_entries: FlavorTextEntry[];
 }
 
@@ -30,28 +30,42 @@ export type StatDescription = {
     name: string;
 }
 
+export type MoveInfo = {
+    move: Move;
+}
+
+export type Move = {
+    name: string;
+    url: string;
+    description: string;
+}
+
+export type Index = {
+    game_index: number;
+    version: Version;
+}
+
+export type Version = {
+    name: string;
+}
+
 export type PokemonDetail = {
+    id: number
     name: string;
     height: number;
+    weight: number;
     abilities: Ability[];
     base_experience: number;
     stats: Stat[];
-
-
-
-    // forms: Form[]
-    // game_indices: Index[]
-    
-    //held_items: HeldItem[]
-    id: number
-    is_default: boolean
+    moves: MoveInfo[]
+    game_indices: Index[]
     location_area_encounters: string
-    // moves: Mfe[]
+
+    //held_items: HeldItem[]
     
-    order: number
     // species: Species
     // sprites: Sprites
     // stats: Stat[]
     // types: Type[]
-    weight: number
+    
   }

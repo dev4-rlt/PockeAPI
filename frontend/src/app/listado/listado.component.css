@@ -1,0 +1,11 @@
+#card {
+    margin-bottom: 3vh;
+    height: 10vh;
+    cursor: pointer;
+    background-color: rgb(124, 136, 199);
+}
+
+#bounds {
+    border-radius: 10px;
+    
+}
