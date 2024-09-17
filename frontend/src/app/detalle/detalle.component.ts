@@ -9,8 +9,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class DetalleComponent {
 
-  @Input() urlInput: string = '';
+  @Input() details = {
+    'name': '',
+    'abilities': [{
+      'name': '',
+      'description': ''
+    }]
+  }
 
   
-
 }

@@ -1,10 +1,9 @@
 <div class="center">
-    <app-listado (urlOutput)="urlPokemon = $event"></app-listado>
+    <app-listado (urlOutput)="urlPokemon = $event; getDetails();"></app-listado>
 </div>
-
 @if (urlPokemon !== '') {
     <div class="center">
-        <app-detalle (urlInput)="urlPokemon" ></app-detalle>
+        <app-detalle [details]="details"></app-detalle>
     </div>
 }
 
