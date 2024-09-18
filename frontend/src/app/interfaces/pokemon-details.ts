@@ -68,7 +68,6 @@ export type PokemonDetail = {
     sprites: Sprites
 
     //held_items: HeldItem[]
-    
     // species: Species
     // stats: Stat[]
     // types: Type[]

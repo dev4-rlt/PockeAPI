@@ -32,7 +32,7 @@ export class MostradorComponent {
         }
         for (let moveInfo of this.details.moves) {
           let description =  await this.getEffectDescription(moveInfo.move.url);
-          moveInfo.move.description = (typeof(description) === 'string' && description.length > 0)? description : 'Sin descripción'
+          moveInfo.move.description = (typeof(description) === 'string' && description.length > 0)? description : 'Sin descripción';
         }
       }, error: err => {
         console.log(err);

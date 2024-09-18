@@ -16,11 +16,13 @@ export class ListadoComponent {
   @Output() urlOutput = new EventEmitter<string>();
 
   pagedPokemons: PagedPokemons | null = null;//Corregir tipo de dato
+  originalLocation: string;
 
   constructor(
     private pokemonService: PokeapiService
   ) {
-    this.getPokemons()
+    this.originalLocation = window.location.href;
+    this.getPokemons();
   }
 
   getPokemons() {
@@ -38,5 +40,9 @@ export class ListadoComponent {
 
   showPokemon(urlPokemon: string) {
     this.urlOutput.emit(urlPokemon);
+    setTimeout(() => {
+      let detailsSection = document.getElementById('details-section');
+      detailsSection?.scrollIntoView({behavior: 'smooth'});
+    }, 100);
   }
 }

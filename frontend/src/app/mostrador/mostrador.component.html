@@ -1,10 +1,11 @@
 <div class="center">
     <app-listado (urlOutput)="urlPokemon = $event; getDetails();"></app-listado>
 </div>
-@if (urlPokemon !== '') {
-    <div class="center">
-        <app-detalle [details]="details"></app-detalle>
-    </div>
-}
-
+<section id="details-section">
+    @if (urlPokemon !== '') {
+        <div class="center">
+            <app-detalle [details]="details"></app-detalle>
+        </div>
+    }
+</section>
 <router-outlet ></router-outlet>
