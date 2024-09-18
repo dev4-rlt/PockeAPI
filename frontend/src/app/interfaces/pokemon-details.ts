@@ -54,6 +54,14 @@ export type Sprites = {
     front_shiny: string
 }
 
+export type Location = {
+    location_area: LocationDescription;
+}
+
+export type LocationDescription = {
+    name: string;
+}
+
 export type PokemonDetail = {
     id: number
     name: string;
@@ -62,10 +70,11 @@ export type PokemonDetail = {
     abilities: Ability[];
     base_experience: number;
     stats: Stat[];
-    moves: MoveInfo[]
-    game_indices: Index[]
-    location_area_encounters: string
-    sprites: Sprites
+    moves: MoveInfo[];
+    game_indices: Index[];
+    location_area_encounters: string;
+    locations: Location[];
+    sprites: Sprites;
 
     //held_items: HeldItem[]
     // species: Species

@@ -6,10 +6,11 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgClass],
   templateUrl: './detalle-pokemon.component.html',
-  styleUrl: './detalle-pokemon.component.css'
 })
 export class DetallePokemonComponent {
   @Input({ required: true }) titulo!: string;
   @Input({ required: true }) descripcion!: string;
+  @Input({ required: true }) iconName!: string;
+  @Input({ required: true }) iconColor: string = '';
   @Input() backgroundColor: string = 'bg-white';
 }

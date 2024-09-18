@@ -25,5 +25,8 @@ export class PokeapiService {
     return this.http.get<EffectDetails>(urlEffect);
   }
 
+  getLocations(urlLocations: string): Observable<Location[]> {
+    return this.http.get<Location[]>(urlLocations)
+  }
 
 }

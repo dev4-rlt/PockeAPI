@@ -1,14 +1,13 @@
-<div class="bg-gray-50 py-24 sm:py-32 rounded-md">
+<div class="bg-gray-50 sm:py-12 rounded-md">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     @if (details){
       <!-- Características y estadísticas -->
     <div>
       <div class="flex justify-evenly items-center">
         <div class="">
-          <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px"
-            class="object-fill">
+          <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px" class="object-fill">
         </div>
-        <div class="">
+        <div>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {{this.details.name.toUpperCase()}}</p>
         </div>
@@ -16,23 +15,19 @@
           <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
         </div>
       </div>
-      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div id="characteristics" class="rounded-lg bg-blue-300 px-8">
-          <br />
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Características</h2>
-          <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
-            @if (this.details){
-              <app-stat-pokemon name="ID" [value]="this.details.id"/>
-              <app-stat-pokemon name="Altura" [value]="this.details.height"/>
-              <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
-            }
-            <br />
+      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+        <div class="rounded-lg bg-blue-300 ">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
+          <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
+            <app-stat-pokemon name="ID" [value]="this.details.id"/>
+            <app-stat-pokemon name="Altura" [value]="this.details.height"/>
+            <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
           </dl>
         </div>
-        <div class="rounded-lg bg-teal-300 px-8">
+        <div class="rounded-lg bg-teal-300">
           <br />
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
-          <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
+          <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
             @for (stat of this.details.stats; track stat.stat.name) {
               <app-stat-pokemon 
                 [name]="stat.stat.name == 'hp'? 'HP': stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1,stat.stat.name.length)"
@@ -46,43 +41,40 @@
     </div>
 
     <!-- Habilidades -->
-    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-7xl">
-      <p class="mt-6 text-lg font-bold leading-8 text-gray-900 sm:text-2xl">Habilidades</p>
-      <br />
+    <app-seccion-pokemon tittle="Habilidades" >
       <div class="flex flex-row justify-center">
         <dl class="flex m-10 space-x-4 p-2 overflow-scroll text-nowrap">
           @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
             <app-detalle-pokemon
               [titulo]="abilityInfo.ability.name.charAt(0).toUpperCase() + abilityInfo.ability.name.slice(1, abilityInfo.ability.name.length)"
               [descripcion]="abilityInfo.ability.description"
+              iconName="fa-star"
+              iconColor="text-green-700"
               backgroundColor="bg-lime-100"
             />
           }
         </dl>
       </div>
-    </div>
-
+    </app-seccion-pokemon>
 
     <!-- Movimientos -->
-    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-7xl">
-      <p class="mt-6 text-lg font-bold leading-8 text-gray-900 sm:text-2xl">Movimientos</p>
-      <br />
+    <app-seccion-pokemon tittle="Movimientos" >
       <dl class="flex flex-row justify-center">
         <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
           @for (moveInfo of details.moves; track moveInfo.move.name) {
           <app-detalle-pokemon
             [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
             [descripcion]="moveInfo.move.description"
-            backgroundColor="bg-violet-400" />
+            iconName="fa-bolt"
+            iconColor="text-purple-600"
+            backgroundColor="bg-violet-300" />
           }
         </div>
       </dl>
-    </div>
+    </app-seccion-pokemon>
 
     <!-- Juegos -->
-    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-      <p class="mt-6 text-lg font-bold leading-8 text-gray-900 sm:text-2xl">Juegos</p>
-      <br />
+    <app-seccion-pokemon tittle="Juegos" >
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
         <!--
         @for (game of details?.game_indices; track game.game_index) {
@@ -103,7 +95,8 @@
         }
         -->
       </dl>
-    </div>
+
+    </app-seccion-pokemon>
     }
   </div>
 </div>

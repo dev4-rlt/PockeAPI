@@ -1,36 +1,32 @@
 <section>
-    @if (pagedPokemons != null) {
-        <div class="bg-gray-50 rounded-md">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-                <div class="text-4xl font-bold text-gray-900">Pokemons</div>
-                <br/>
-                <div class="mt-6 space-y-12 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0">
-
-                    @for (pokemon of pagedPokemons.results; track pokemon.name) {
-                        <div class="group relative">
-                          <dt class="text-base font-semibold leading-7 text-gray-900">
-                            <div class="absolute left-0 top-0 flex h-7 w-7 items-center justify-center rounded-lg">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-4">
-                                <path d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z" />
-                                <path d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z" />
-                              </svg>                              
-                            </div>
-                            <div (click)="showPokemon(pokemon.url)" id="card" class="cursor-pointer mb-6 bg-indigo-500 text-base font-semibold text-gray-900 relative w-full overflow-hidden rounded-lg sm:aspect-w-2 group-hover:opacity-75 sm:h-64">
-                              <br/>
-                              {{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1, pokemon.name.length)}}
-                            </div>
-                          </dt>
+  @if (pagedPokemons != null) {
+      <div class="bg-gray-50 rounded-md">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+              <div class="text-4xl font-bold text-gray-900">Pokemons</div>
+              <br/>
+              <div class="mt-6 space-y-12 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0">
+                  @for (pokemon of pagedPokemons.results; track pokemon.name) {
+                    <div class="group relative">
+                      <dt class="text-base font-semibold leading-7 text-gray-900">
+                        <div class="absolute left-2 top-1 flex h-7 w-7 items-center justify-center rounded-lg">
+                          <i class="fa-solid fa-eye fa-xl"></i>                           
                         </div>
-                    }
-                </div>
+                        <div (click)="showPokemon(pokemon.url)" id="card" class="cursor-pointer mb-6 bg-indigo-500 text-base font-semibold text-gray-900 relative w-full overflow-hidden rounded-lg sm:aspect-w-2 group-hover:opacity-75 sm:h-64">
+                          <br/>
+                          {{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1, pokemon.name.length)}}
+                        </div>
+                      </dt>
+                    </div>
+                  }
               </div>
             </div>
           </div>
-    } @else {
-        <div class="text-2xl font-bold">
-            No existen pokemons para mostrar
         </div>
-    }
+  } @else {
+      <div class="text-2xl font-bold">
+          No existen pokemons para mostrar
+      </div>
+  }
 </section>
 <router-outlet></router-outlet>

@@ -22,7 +22,7 @@ export class MostradorComponent {
     private pokemonService: PokeapiService
   ) {}
 
-  getDetails() {
+  getPokemonDetails() {
     this.pokemonService.getPokemonDetails(this.urlPokemon).subscribe({
       next: async res => {
         this.details = res;
@@ -34,6 +34,10 @@ export class MostradorComponent {
           let description =  await this.getEffectDescription(moveInfo.move.url);
           moveInfo.move.description = (typeof(description) === 'string' && description.length > 0)? description : 'Sin descripción';
         }
+        //let locations = await this.getLocations(this.details.location_area_encounters);
+        //console.log(locations)//pendiente locations
+        let detailsSection = document.getElementById('details-section');
+        detailsSection?.scrollIntoView({behavior: 'smooth'});
       }, error: err => {
         console.log(err);
         alert('Ha ocurrido un error al obtener los detalles del Pokemon')
@@ -54,6 +58,20 @@ export class MostradorComponent {
           console.log(err);
           alert('Ha ocurrido un error al obtener la información del Pokemon')
           reject('')
+        }
+      });
+    });
+  }
+
+  async getLocations(url: string) {
+    return new Promise((resolve, reject) => {
+      this.pokemonService.getLocations(url).subscribe({
+        next: res => {
+          resolve(res);
+        }, error: err => {
+          console.log(err);
+          alert('Ha ocurrido un error al obtener la información del Pokemon')
+          reject(null)
         }
       });
     });

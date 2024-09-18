@@ -1,5 +1,5 @@
 <div class="center">
-    <app-listado (urlOutput)="urlPokemon = $event; getDetails();"></app-listado>
+    <app-listado (urlOutput)="urlPokemon = $event; getPokemonDetails();"></app-listado>
 </div>
 <section id="details-section">
     @if (urlPokemon !== '') {
