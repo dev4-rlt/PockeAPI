@@ -61,7 +61,7 @@
       <app-detalle-pokemon
         [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
         [descripcion]="moveInfo.move.description"
-        iconName="fa-bolt"
+        iconName="fa-wheelchair-move"
         iconColor="text-purple-700"
         backgroundColor="bg-violet-300" />
       }
@@ -69,41 +69,28 @@
     <br/>
 
     <!-- Lugares -->
-    <app-seccion-pokemon title="¿Dónde Encontrarlo?">
+    <app-seccion-pokemon title="¿Dónde encontrarlo?">
       @for (location of details.locations; track $index) {
         <app-detalle-pokemon
           [titulo]="location.location.name"
           iconName="fa-map-location-dot"
           iconColor="text-stone-600"
-            backgroundColor="bg-stone-300"
+          backgroundColor="bg-stone-300"
         />
       }
     </app-seccion-pokemon>
     <br/>
 
     <!-- Juegos -->
-    <app-seccion-pokemon title="Juegos" >
-      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-        <!--
-        @for (game of details?.game_indices; track game.game_index) {
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                  d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
-                <path strokeLinecap="round" strokeLinejoin="round"
-                  d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
-              </svg>
-            </div>
-            {{game.version.name}}
-          </dt>
-        </div>
-        }
-        -->
-      </dl>
-
+    <app-seccion-pokemon title="Juegos en los que aparece" >
+      @for (game of details.game_indices; track $index) {
+        <app-detalle-pokemon
+          [titulo]="game.version.name.charAt(0).toUpperCase() + game.version.name.slice(1, game.version.name.length)"
+          iconName="fa-gamepad"
+          iconColor="text-red-600"
+          backgroundColor="bg-red-300"
+        />
+      }
     </app-seccion-pokemon>
     }
   </div>

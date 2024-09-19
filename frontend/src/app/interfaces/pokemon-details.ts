@@ -80,10 +80,4 @@ export type PokemonDetail = {
     location_area_encounters: string;
     locations: LocationInfo[];
     sprites: Sprites;
-
-    //held_items: HeldItem[]
-    // species: Species
-    // stats: Stat[]
-    // types: Type[]
-    
   }
