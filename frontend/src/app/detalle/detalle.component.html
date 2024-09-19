@@ -39,55 +39,47 @@
           </div>
         </div>
       </div>
+      <br/>
 
     <!-- Habilidades -->
     <app-seccion-pokemon title="Habilidades" >
-      <div class="flex flex-row justify-center">
-        <dl class="flex m-10 space-x-4 p-2 overflow-scroll text-nowrap">
-          @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
-            <app-detalle-pokemon
-              [titulo]="abilityInfo.ability.name.charAt(0).toUpperCase() + abilityInfo.ability.name.slice(1, abilityInfo.ability.name.length)"
-              [descripcion]="abilityInfo.ability.description"
-              iconName="fa-star"
-              iconColor="text-green-700"
-              backgroundColor="bg-lime-100"
-            />
-          }
-        </dl>
-      </div>
+      @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
+        <app-detalle-pokemon
+          [titulo]="abilityInfo.ability.name.charAt(0).toUpperCase() + abilityInfo.ability.name.slice(1, abilityInfo.ability.name.length)"
+          [descripcion]="abilityInfo.ability.description"
+          iconName="fa-star"
+          iconColor="text-green-700"
+          backgroundColor="bg-lime-100"
+        />
+      }
     </app-seccion-pokemon>
+    <br/>
 
     <!-- Movimientos -->
     <app-seccion-pokemon title="Movimientos" >
-      <dl class="flex flex-row justify-center">
-        <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
-          @for (moveInfo of details.moves; track moveInfo.move.name) {
-          <app-detalle-pokemon
-            [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
-            [descripcion]="moveInfo.move.description"
-            iconName="fa-bolt"
-            iconColor="text-purple-700"
-            backgroundColor="bg-violet-300" />
-          }
-        </div>
-      </dl>
+      @for (moveInfo of details.moves; track moveInfo.move.name) {
+      <app-detalle-pokemon
+        [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
+        [descripcion]="moveInfo.move.description"
+        iconName="fa-bolt"
+        iconColor="text-purple-700"
+        backgroundColor="bg-violet-300" />
+      }
     </app-seccion-pokemon>
+    <br/>
 
     <!-- Lugares -->
     <app-seccion-pokemon title="¿Dónde Encontrarlo?">
-      <dl class="flex flex-row justify-center">
-        <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
-          @for (location of details.locations; track $index) {
-            <app-detalle-pokemon
-              [titulo]="location.location.name"
-              iconName="fa-map-location-dot"
-              iconColor="text-stone-600"
-              backgroundColor="bg-stone-300"
-            />
-          }
-        </div>
-      </dl>
+      @for (location of details.locations; track $index) {
+        <app-detalle-pokemon
+          [titulo]="location.location.name"
+          iconName="fa-map-location-dot"
+          iconColor="text-stone-600"
+            backgroundColor="bg-stone-300"
+        />
+      }
     </app-seccion-pokemon>
+    <br/>
 
     <!-- Juegos -->
     <app-seccion-pokemon title="Juegos" >
