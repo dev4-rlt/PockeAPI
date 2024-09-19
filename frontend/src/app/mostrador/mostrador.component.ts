@@ -78,4 +78,4 @@ export class MostradorComponent {
   }
 }
 
-// comentario
+// correccion de problema de usario
