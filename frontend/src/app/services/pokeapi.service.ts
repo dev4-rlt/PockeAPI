@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedPokemons } from '../interfaces/paged-pokemons';
 import { Observable } from 'rxjs';
-import { EffectDetails, PokemonDetail } from '../interfaces/pokemon-details';
+import { EffectDetails, Location, LocationInfo, PokemonDetail } from '../interfaces/pokemon-details';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,11 @@ export class PokeapiService {
   }
 
   getLocations(urlLocations: string): Observable<Location[]> {
-    return this.http.get<Location[]>(urlLocations)
+    return this.http.get<Location[]>(urlLocations);
+  }
+
+  getLocationName(urlLocation: string): Observable<LocationInfo> {
+    return this.http.get<LocationInfo>(urlLocation);
   }
 
 }

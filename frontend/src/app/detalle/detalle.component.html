@@ -66,7 +66,7 @@
             [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
             [descripcion]="moveInfo.move.description"
             iconName="fa-bolt"
-            iconColor="text-purple-600"
+            iconColor="text-purple-700"
             backgroundColor="bg-violet-300" />
           }
         </div>
@@ -74,10 +74,17 @@
     </app-seccion-pokemon>
 
     <!-- Lugares -->
-    <app-seccion-pokemon title="Lugares">
+    <app-seccion-pokemon title="¿Dónde Encontrarlo?">
       <dl class="flex flex-row justify-center">
         <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
-          
+          @for (location of details.locations; track $index) {
+            <app-detalle-pokemon
+              [titulo]="location.location.name"
+              iconName="fa-map-location-dot"
+              iconColor="text-stone-600"
+              backgroundColor="bg-stone-300"
+            />
+          }
         </div>
       </dl>
     </app-seccion-pokemon>

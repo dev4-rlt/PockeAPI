@@ -55,11 +55,16 @@ export type Sprites = {
 }
 
 export type Location = {
-    location_area: LocationDescription;
+    location_area: LocationName;
 }
 
-export type LocationDescription = {
+export type LocationName = {
     name: string;
+    url: string;
+}
+
+export type LocationInfo = {
+    location: LocationName;
 }
 
 export type PokemonDetail = {
@@ -73,7 +78,7 @@ export type PokemonDetail = {
     moves: MoveInfo[];
     game_indices: Index[];
     location_area_encounters: string;
-    locations: Location[];
+    locations: LocationInfo[];
     sprites: Sprites;
 
     //held_items: HeldItem[]

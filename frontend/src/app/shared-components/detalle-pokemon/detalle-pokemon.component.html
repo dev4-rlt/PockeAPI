@@ -1,11 +1,13 @@
 <div class="relative pl-12 pr-12 border-2 border-gray-500 rounded-lg overflow-hidden" [ngClass]="[backgroundColor]" >
-  <div class="bg-white">
-    <dt class="text-base font-semibold leading-7 text-gray-900">
+  <div class="bg-white p-3">
+    <dt class="text-base font-semibold leading-7 text-gray-900 items-center">
       <div class="absolute left-2 top-1 flex h-7 w-7 items-center justify-center">
           <i class="fa-solid {{iconName}} fa-xl {{iconColor}}" ></i>
       </div>
       {{titulo}}
     </dt>
-    <dd class="mt-2 text-base leading-7 text-gray-600 text-wrap w-60">{{descripcion}}</dd>
+    @if (descripcion) {
+      <dd class="mt-2 text-base leading-7 text-gray-600 text-wrap w-60">{{descripcion}}</dd>
+    }
   </div>
 </div>

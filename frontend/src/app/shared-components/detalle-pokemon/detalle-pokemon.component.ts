@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class DetallePokemonComponent {
   @Input({ required: true }) titulo!: string;
-  @Input({ required: true }) descripcion!: string;
+  @Input() descripcion: string | null = null;
   @Input({ required: true }) iconName!: string;
   @Input({ required: true }) iconColor: string = '';
   @Input() backgroundColor: string = 'bg-white';
