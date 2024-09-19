@@ -1,47 +1,47 @@
 <div class="bg-gray-50 sm:py-12 rounded-md">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    @if (details){
+    @if (this.details) {
+
       <!-- Características y estadísticas -->
-    <div>
-      <div class="flex justify-evenly items-center">
-        <div class="">
+      <div>
+        <div class="flex justify-evenly items-center">
           <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px" class="object-fill">
+          <div>
+            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {{this.details.name.toUpperCase()}}
+            </p>
+          </div>
+          <div class="">
+            <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
+          </div>
         </div>
-        <div>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {{this.details.name.toUpperCase()}}</p>
-        </div>
-        <div class="">
-          <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
-        </div>
-      </div>
-      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div class="rounded-lg bg-blue-300 ">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
-          <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
-            <app-stat-pokemon name="ID" [value]="this.details.id"/>
-            <app-stat-pokemon name="Altura" [value]="this.details.height"/>
-            <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
-          </dl>
-        </div>
-        <div class="rounded-lg bg-teal-300">
-          <br />
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
-          <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
-            @for (stat of this.details.stats; track stat.stat.name) {
-              <app-stat-pokemon 
-                [name]="stat.stat.name == 'hp'? 'HP': stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1,stat.stat.name.length)"
-                [value]="stat.base_stat"
-              />
-            }
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+          <div class="rounded-lg bg-blue-300 ">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
+            <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
+              <app-stat-pokemon name="ID" [value]="this.details.id"/>
+              <app-stat-pokemon name="Altura" [value]="this.details.height"/>
+              <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
+            </dl>
+          </div>
+          <div class="rounded-lg bg-teal-300">
             <br />
-          </dl>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
+            <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
+              @for (stat of this.details.stats; track stat.stat.name) {
+                <app-stat-pokemon 
+                  [name]="stat.stat.name == 'hp'? 'HP': stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1,stat.stat.name.length)"
+                  [value]="stat.base_stat"
+                />
+              }
+              <br />
+            </dl>
+          </div>
         </div>
       </div>
-    </div>
 
     <!-- Habilidades -->
-    <app-seccion-pokemon tittle="Habilidades" >
+    <app-seccion-pokemon title="Habilidades" >
       <div class="flex flex-row justify-center">
         <dl class="flex m-10 space-x-4 p-2 overflow-scroll text-nowrap">
           @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
@@ -58,7 +58,7 @@
     </app-seccion-pokemon>
 
     <!-- Movimientos -->
-    <app-seccion-pokemon tittle="Movimientos" >
+    <app-seccion-pokemon title="Movimientos" >
       <dl class="flex flex-row justify-center">
         <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
           @for (moveInfo of details.moves; track moveInfo.move.name) {
@@ -73,8 +73,17 @@
       </dl>
     </app-seccion-pokemon>
 
+    <!-- Lugares -->
+    <app-seccion-pokemon title="Lugares">
+      <dl class="flex flex-row justify-center">
+        <div class="flex space-x-4 m-10 p-2 overflow-scroll text-nowrap">
+          
+        </div>
+      </dl>
+    </app-seccion-pokemon>
+
     <!-- Juegos -->
-    <app-seccion-pokemon tittle="Juegos" >
+    <app-seccion-pokemon title="Juegos" >
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
         <!--
         @for (game of details?.game_indices; track game.game_index) {
