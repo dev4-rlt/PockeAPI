@@ -1,6 +1,6 @@
 from flask_restx import Api
 
-from .pokemon_resource import PokemonesResource as pokemones
+from .pokemon_resource import api as pokemones
 
 api = Api(
     title='Practica pokemon',
