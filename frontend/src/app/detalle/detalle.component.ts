@@ -38,6 +38,9 @@ export class DetalleComponent implements OnInit, OnChanges {
           let description = await this.getEffectDescription(abilityInfo.ability.url);
           abilityInfo.ability.description = (typeof (description) === 'string') ? description : ''
         }
+        let detailsSection = document.getElementById('details-section');
+        detailsSection?.scrollIntoView({ behavior: 'smooth' });
+
         for (let moveInfo of this.details.moves) {
           let description = await this.getEffectDescription(moveInfo.move.url);
           moveInfo.move.description = (typeof (description) === 'string' && description.length > 0) ? description : 'Sin descripción';
@@ -55,9 +58,6 @@ export class DetalleComponent implements OnInit, OnChanges {
           locationNames.push(locationName);
         }
         this.details.locations = locationNames
-
-        let detailsSection = document.getElementById('details-section');
-        detailsSection?.scrollIntoView({ behavior: 'smooth' });
       }, error: err => {
         console.log(err);
         alert('Ha ocurrido un error al obtener los detalles del Pokemon')

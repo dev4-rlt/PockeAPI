@@ -1,9 +1,9 @@
-<div class="px-12 border-2 border-gray-500 rounded-lg overflow-hidden min-w-48" [ngClass]="[backgroundColor]" >
-  <div class="bg-white p-3">
+<div class="group relative border-2 border-gray-500 rounded-lg overflow-hidden min-w-48 min-h-12" [ngClass]="[backgroundColor]" >
+  <div class="absolute top-1 left-1 h-7 w-7">
+    <i class="fa-solid {{iconName}} fa-xl {{iconColor}}" ></i>
+  </div>
+  <div class="bg-white mx-9 p-2">
     <dt class="capitalize text-base font-semibold leading-7 text-gray-900 items-center">
-      <div class="absolute left-2 top-1 flex h-7 w-7 items-center">
-          <i class="fa-solid {{iconName}} fa-xl {{iconColor}}" ></i>
-      </div>
       {{titulo}}
     </dt>
     @if (descripcion) {

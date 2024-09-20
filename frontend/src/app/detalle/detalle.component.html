@@ -4,19 +4,16 @@
 
       <!-- Características y estadísticas -->
       <div>
-        <div class="flex justify-evenly items-center">
+        <div class="flex justify-evenly items-center max-w-7xl m-auto">
           <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px" class="object-fill">
-          <div>
-            <p class="uppercase mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {{this.details.name}}
-            </p>
-          </div>
-          <div class="">
-            <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
-          </div>
+          <p class="uppercase mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {{this.details.name}}
+          </p>
+          <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
         </div>
-        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-          <div class="rounded-lg bg-blue-300 ">
+
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8 ">
+          <div class="rounded-lg px-4 bg-blue-300 border-gray-400 border-2">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
             <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
               <app-stat-pokemon name="ID" [value]="this.details.id"/>
@@ -24,7 +21,7 @@
               <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
             </dl>
           </div>
-          <div class="rounded-lg bg-teal-300">
+          <div class="rounded-lg px-4 bg-teal-300 border-gray-400 border-2">
             <br />
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
             <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
@@ -39,59 +36,87 @@
           </div>
         </div>
       </div>
+      
+      <br/>
+      <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
       <br/>
 
-    <!-- Habilidades -->
-    <app-seccion-pokemon title="Habilidades" >
-      @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
-        <app-detalle-pokemon
-          [titulo]="abilityInfo.ability.name"
-          [descripcion]="abilityInfo.ability.description"
-          iconName="fa-star"
-          iconColor="text-green-700"
-          backgroundColor="bg-lime-100"
-        />
-      }
-    </app-seccion-pokemon>
-    <br/>
+      <!-- Habilidades -->
+      <app-seccion-pokemon title="Habilidades" >
+        @if (details.abilities.length > 0) {
+          @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
+            <app-detalle-pokemon
+              [titulo]="abilityInfo.ability.name"
+              [descripcion]="abilityInfo.ability.description"
+              iconName="fa-star"
+              iconColor="text-green-700"
+              backgroundColor="bg-lime-100"
+            />
+          }
+        } @else {
+          <div class="size-10 w-96">No existe información de habilidades</div>
+        }
+        </app-seccion-pokemon>
+      
+      <br/>
+      <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+      <br/>
 
-    <!-- Movimientos -->
-    <app-seccion-pokemon title="Movimientos" >
-      @for (moveInfo of details.moves; track moveInfo.move.name) {
-      <app-detalle-pokemon
-        [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
-        [descripcion]="moveInfo.move.description"
-        iconName="fa-wheelchair-move"
-        iconColor="text-purple-700"
-        backgroundColor="bg-violet-300" />
-      }
-    </app-seccion-pokemon>
-    <br/>
+      <!-- Movimientos -->
+      <app-seccion-pokemon title="Movimientos" >
+        @if (details.moves.length > 0) {
+          @for (moveInfo of details.moves; track moveInfo.move.name) {
+          <app-detalle-pokemon
+            [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
+            [descripcion]="moveInfo.move.description"
+            iconName="fa-wheelchair-move"
+            iconColor="text-purple-700"
+            backgroundColor="bg-violet-300" />
+          }
+        } @else {
+          <div class="size-10 w-96">No existe información de movimientos</div>
+        }
+      </app-seccion-pokemon>
 
-    <!-- Lugares -->
-    <app-seccion-pokemon title="¿Dónde encontrarlo?">
-      @for (location of details.locations; track $index) {
-        <app-detalle-pokemon
-          [titulo]="location.location.name"
-          iconName="fa-map-location-dot"
-          iconColor="text-stone-600"
-          backgroundColor="bg-stone-300"
-        />
-      }
-    </app-seccion-pokemon>
-    <br/>
+      <br/>
+      <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+      <br/>
 
-    <!-- Juegos -->
-    <app-seccion-pokemon title="Juegos en los que aparece" >
-      @for (game of details.game_indices; track $index) {
-        <app-detalle-pokemon
-          [titulo]="game.version.name"
-          iconName="fa-gamepad"
-          iconColor="text-red-600"
-          backgroundColor="bg-red-300"
-        />
+      <!-- Lugares -->
+      <app-seccion-pokemon title="¿Dónde encontrarlo?">
+        @if (details.locations.length > 0) {
+          @for (location of details.locations; track $index) {
+            <app-detalle-pokemon
+              [titulo]="location.location.name"
+              iconName="fa-map-location-dot"
+              iconColor="text-stone-600"
+              backgroundColor="bg-stone-300"
+            />
+          }
+        } @else {
+          <div class="size-10 w-96">No existe información de dónde encontrarlo</div>
+        }
+      </app-seccion-pokemon>
+      
+      <br/>
+      <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+      <br/>
+
+      <!-- Juegos -->
+      <app-seccion-pokemon title="Juegos en los que aparece" >
+        @if (details.game_indices.length > 0) {
+          @for (game of details.game_indices; track $index) {
+            <app-detalle-pokemon
+              [titulo]="game.version.name"
+              iconName="fa-gamepad"
+              iconColor="text-red-600"
+              backgroundColor="bg-red-300"
+            />
+          }
+        } @else {
+          <div class="size-10 w-96">No existe información de juegos</div>
+        }
+      </app-seccion-pokemon>
       }
-    </app-seccion-pokemon>
-    }
   </div>
 </div>
