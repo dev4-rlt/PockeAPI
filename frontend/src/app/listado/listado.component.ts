@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokeapiService } from '../services/pokeapi.service';
 import { RouterOutlet } from '@angular/router';
 import { PagedPokemons } from '../interfaces/paged-pokemons';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-listado',
@@ -25,7 +26,9 @@ export class ListadoComponent {
   }
 
   getPokemons() {
-    this.pokemonService.getPagedPokemons().subscribe({
+    let params = new HttpParams().append('limit', 5).append('offset', 5);
+
+    this.pokemonService.getPagedPokemons(params).subscribe({
       next: res => {
         this.pagedPokemons = res;
       }, error: err => {

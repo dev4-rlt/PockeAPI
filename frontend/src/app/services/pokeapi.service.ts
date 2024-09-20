@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedPokemons } from '../interfaces/paged-pokemons';
 import { Observable } from 'rxjs';
@@ -9,12 +9,12 @@ import { EffectDetails, Location, LocationInfo, PokemonDetail } from '../interfa
 })
 export class PokeapiService {
 
-  API: string = 'https://pokeapi.co/api'
+  API: string = 'http://127.0.0.1:5000'
 
   constructor(private http: HttpClient) { }
 
-  getPagedPokemons(): Observable<PagedPokemons> {
-    return this.http.get<PagedPokemons>(`${this.API}/v2/pokemon?limit=10&offset=0`);
+  getPagedPokemons(params: HttpParams): Observable<PagedPokemons> {
+    return this.http.get<PagedPokemons>(`${this.API}/pokemons`, { params: params});
   }
 
   getPokemonDetails(urlPokemon: string): Observable<PokemonDetail> {

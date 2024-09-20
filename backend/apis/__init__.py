@@ -7,4 +7,4 @@ api = Api(
     version='1.0',
 )
 
-api.add_namespace(pokemones, path='/pokemones')
+api.add_namespace(pokemones, path='/pokemons')
