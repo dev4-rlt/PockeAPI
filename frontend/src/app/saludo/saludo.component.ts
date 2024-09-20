@@ -5,8 +5,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   selector: 'app-saludo',
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './saludo.component.html',
-  styleUrl: './saludo.component.css'
+  templateUrl: './saludo.component.html'
 })
 export class SaludoComponent {
 

@@ -7,8 +7,7 @@ import { DetalleComponent } from "../detalle/detalle.component";
   selector: 'app-mostrador',
   standalone: true,
   imports: [RouterOutlet, ListadoComponent, DetalleComponent],
-  templateUrl: './mostrador.component.html',
-  styleUrl: './mostrador.component.css'
+  templateUrl: './mostrador.component.html'
 })
 
 export class MostradorComponent {

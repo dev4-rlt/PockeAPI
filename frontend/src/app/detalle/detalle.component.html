@@ -1,5 +1,5 @@
-<div class="bg-gray-50 sm:py-12 rounded-md">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+<div class="bg-gray-50 sm:py-12 rounded-md text-center my-20 mx-20">
+  <div class="px-6 lg:px-8">
     @if (this.details) {
 
       <!-- Características y estadísticas -->
@@ -7,8 +7,8 @@
         <div class="flex justify-evenly items-center">
           <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px" class="object-fill">
           <div>
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {{this.details.name.toUpperCase()}}
+            <p class="uppercase mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {{this.details.name}}
             </p>
           </div>
           <div class="">
@@ -45,7 +45,7 @@
     <app-seccion-pokemon title="Habilidades" >
       @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
         <app-detalle-pokemon
-          [titulo]="abilityInfo.ability.name.charAt(0).toUpperCase() + abilityInfo.ability.name.slice(1, abilityInfo.ability.name.length)"
+          [titulo]="abilityInfo.ability.name"
           [descripcion]="abilityInfo.ability.description"
           iconName="fa-star"
           iconColor="text-green-700"
@@ -85,7 +85,7 @@
     <app-seccion-pokemon title="Juegos en los que aparece" >
       @for (game of details.game_indices; track $index) {
         <app-detalle-pokemon
-          [titulo]="game.version.name.charAt(0).toUpperCase() + game.version.name.slice(1, game.version.name.length)"
+          [titulo]="game.version.name"
           iconName="fa-gamepad"
           iconColor="text-red-600"
           backgroundColor="bg-red-300"

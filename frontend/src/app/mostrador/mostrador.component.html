@@ -1,7 +1,7 @@
-<div class="center">
+<div>
     <app-listado (urlOutput)="url = $event;"></app-listado>
 </div>
-<section id="details-section" class="center">
+<section id="details-section">
     @if (url !== '') {
         <app-detalle [urlPokemon]="url"></app-detalle>
     }

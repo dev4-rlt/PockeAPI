@@ -7,8 +7,7 @@ import { PagedPokemons } from '../interfaces/paged-pokemons';
   selector: 'app-listado',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './listado.component.html',
-  styleUrl: './listado.component.css'
+  templateUrl: './listado.component.html'
 })
 
 export class ListadoComponent {
