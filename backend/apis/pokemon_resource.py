@@ -1,7 +1,33 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
-from core.database import db, Pokemons
+from core.database import db, Pokemons, PokemonLocations, Locations
 
 api = Namespace('Pokemons', description='Recurso para pokemons')
+
+basePokemonLocation = api.model(name='BasePokemonLocation', model={
+    'codPokemonLocation': fields.Integer,
+    'locationCod': fields.Integer,
+    'locationName': fields.String(attribute='location.name')
+})
+
+basePokemonGame = api.model(name='BasePokemonGame', model={
+    'codPokemonGame': fields.Integer,
+    'gameCod': fields.Integer,
+    'gameName': fields.String(attribute='game.name')
+})
+
+basePokemonHability = api.model(name='BasePokemonGame', model={
+    'codPokemonHability': fields.Integer,
+    'habilityCod': fields.Integer,
+    'habilityName': fields.String(attribute='hability.name'),
+    'habilityDescription': fields.String(attribute='hability.description')
+})
+
+basePokemonMove = api.model(name='BasePokemonMove', model={
+    'codPokemonMove': fields.Integer,
+    'moveCod': fields.Integer,
+    'moveName': fields.String(attribute='move.name'),
+    'descriptionName': fields.String(attribute='move.description')
+})
 
 basePokemon = api.model(name='BasePokemon', model={
     'codPokemon': fields.Integer,
@@ -13,7 +39,11 @@ basePokemon = api.model(name='BasePokemon', model={
     'defense': fields.Integer,
     'specialAttack': fields.Integer,
     'specialDefense': fields.Integer,
-    'speed': fields.Integer, 
+    'speed': fields.Integer,
+    'pokemonLocations': fields.List(fields.Nested(basePokemonLocation)),
+    'pokemonGames': fields.List(fields.Nested(basePokemonGame)),
+    'pokemonHabilities': fields.List(fields.Nested(basePokemonHability)),
+    'pokemonMoves': fields.List(fields.Nested(basePokemonMove))
 })
 
 postPokemon = api.model(name='PostPokemon', model={
@@ -75,6 +105,7 @@ class PokemonsResource(Resource):
         pokemon: Pokemons = db.session.query(Pokemons).get(codPokemon)
         if pokemon == None:
             abort(404, 'No se encuentra el pokemon')
+
         return pokemon
     
     @api.expect(postPokemon, validate=True)

@@ -16,4 +16,7 @@ class Pokemons(db.Model):
     specialDefense = Column('special_defense', Integer, nullable=False)
     speed = Column('speed', Integer, nullable=False)
 
+    pokemonLocations = relationship('PokemonLocations', back_populates='pokemon')
+    pokemonHabilities = relationship('PokemonHabilities', back_populates='pokemon')
+    pokemonMoves = relationship('PokemonMoves', back_populates='pokemon')
     pokemonGames = relationship('PokemonGames', back_populates='pokemon')

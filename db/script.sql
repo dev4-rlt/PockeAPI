@@ -1,5 +1,5 @@
-CREATE TABLE pokemon (
-    id                  INT PRIMARY KEY,
+CREATE TABLE pokemons (
+    cod_pokemon         SERIAL PRIMARY KEY,
     name                VARCHAR(25) NOT NULL,
     height              INT NOT NULL,
     weight              INT NOT NULL,
@@ -11,56 +11,56 @@ CREATE TABLE pokemon (
     speed               INT NOT NULL
 );
 
-CREATE TABLE hability (
-    id              INT SERIAL PRIMARY KEY,
+CREATE TABLE habilities (
+    cod_hability    SERIAL PRIMARY KEY,
     name            VARCHAR(25) NOT NULL,
     description     VARCHAR(255)
 );
 
-CREATE TABLE pokemon_hability (
-    id_pokemon      INT,
-    id_hability     INT,
-    FOREIGN_KEY(id_pokemon) REFERENCES pokemons(id_pokemon),
-    FOREIGN_KEY(id_hability) REFERENCES habilities(id_hability),
-    PRIMARY_KEY(id_pokemon, id_hability),
+CREATE TABLE pokemon_habilities (
+    cod_pokemon_hability    SERIAL PRIMARY KEY,
+    pokemon_cod             INT NOT NULL,
+    hability_cod            INT NOT NULL,
+    CONSTRAINT fk_pokemon FOREIGN KEY(pokemon_cod) REFERENCES pokemons(cod_pokemon),
+    CONSTRAINT fk_hability FOREIGN KEY(hability_cod) REFERENCES habilities(cod_hability)
 );
 
-CREATE TABLE move (
-    id              INT SERIAL PRIMARY KEY,
+CREATE TABLE moves (
+    cod_move        SERIAL PRIMARY KEY,
     name            VARCHAR(25) NOT NULL,
     description     VARCHAR(255)
 );
 
-CREATE TABLE pokemon_move (
-    id_pokemon      INT,
-    id_move         INT,
-    FOREIGN_KEY(id_pokemon) REFERENCES pokemons(id_pokemon),
-    FOREIGN_KEY(id_move) REFERENCES moves(id_move),
-    PRIMARY_KEY(id_pokemon, id_move),
-)
-
-CREATE TABLE location (
-    id      INT SERIAL PRIMARY KEY,
-    name    VARCHAR(25) NOT NULL
+CREATE TABLE pokemon_moves (
+    cod_pokemon_move   SERIAL PRIMARY KEY,
+    pokemon_cod        INT NOT NULL,
+    move_cod           INT NOT NULL,
+    FOREIGN KEY(pokemon_cod) REFERENCES pokemons(cod_pokemon),
+    FOREIGN KEY(move_cod) REFERENCES moves(cod_move)
 );
 
-CREATE TABLE pokemon_location (
-    id_pokemon      INT,
-    id_location     INT,
-    FOREIGN_KEY(id_pokemon) REFERENCES pokemons(id_pokemon),
-    FOREIGN_KEY(id_location) REFERENCES moves(id_location),
-    PRIMARY_KEY(id_pokemon, id_location),
-)
-
-CREATE TABLE game (
-    id      INT SERIAL PRIMARY KEY,
-    name    VARCHAR(25) NOT NULL
+CREATE TABLE locations (
+    cod_locations       SERIAL PRIMARY KEY,
+    name                VARCHAR(25) NOT NULL
 );
 
-CREATE TABLE pokemon_game (
-    id_pokemon      INT,
-    id_game         INT,
-    FOREIGN_KEY(id_pokemon) REFERENCES pokemons(id_pokemon),
-    FOREIGN_KEY(id_game) REFERENCES moves(id_game),
-    PRIMARY_KEY(id_pokemon, id_game),
-)
+CREATE TABLE pokemon_locations (
+    cod_pokemon_location        SERIAL PRIMARY KEY,
+    pokemon_cod                 INT NOT NULL,
+    location_cod                INT NOT NULL,
+    FOREIGN KEY(pokemon_cod) REFERENCES pokemons(cod_pokemon),
+    FOREIGN KEY(location_cod) REFERENCES locations(cod_location)
+);
+
+CREATE TABLE games (
+    cod_game     SERIAL PRIMARY KEY,
+    name        VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE pokemon_games (
+    cod_pokemon_game        SERIAL PRIMARY KEY,
+    pokemon_cod             INT NOT NULL,
+    game_cod                INT NOT NULL,
+    FOREIGN KEY(pokemon_cod) REFERENCES pokemons(cod_pokemon),
+    FOREIGN KEY(game_cod) REFERENCES games(cod_game)
+);
