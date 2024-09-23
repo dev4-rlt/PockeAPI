@@ -1,10 +1,11 @@
 from flask import Flask
-from flask_restx import Api
+from flask_cors import CORS
+from dotenv import load_dotenv
+from flask_migrate import Migrate
+import os
+
 from apis import api
 from core.database import db
-from flask_cors import CORS
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 DB_HOST = os.getenv('DB_HOST')
@@ -17,6 +18,7 @@ CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://' + DB_USER + ':' + DB_PASSWORD +  '@' + DB_HOST + ':5432/' + DB_NAME
 api.init_app(app)
 db.init_app(app)
+migrate = Migrate(app, db)
 
 if __name__ == '__main__':
     app.run(debug=True)
