@@ -11,7 +11,7 @@ from .move import Moves
 from .game import Games
 from .hability import Habilities
 
-from .pokemonGames import PokemonGames
-from .pokemonHabilities import PokemonHabilities
-from .pokemonLocations import PokemonLocations
-from .pokemonMoves import PokemonMoves
+from .pokemon_games import PokemonGames
+from .pokemon_habilities import PokemonHabilities
+from .pokemon_locations import PokemonLocations
+from .pokemon_moves import PokemonMoves

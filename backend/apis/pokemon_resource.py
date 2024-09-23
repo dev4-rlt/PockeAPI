@@ -4,15 +4,15 @@ from core.database import db, Pokemons
 api = Namespace('Pokemons', description='Recurso para pokemons')
 
 basePokemon = api.model(name='BasePokemon', model={
-    'cod_pokemon': fields.Integer,
+    'codPokemon': fields.Integer,
     'name': fields.String,
     'height': fields.Integer,
     'weight': fields.Integer,
     'hp': fields.Integer,
     'attack': fields.Integer,
     'defense': fields.Integer,
-    'special_attack': fields.Integer,
-    'special_defense': fields.Integer,
+    'specialAttack': fields.Integer,
+    'specialDefense': fields.Integer,
     'speed': fields.Integer, 
 })
 
@@ -23,8 +23,8 @@ postPokemon = api.model(name='PostPokemon', model={
     'hp': fields.Integer,
     'attack': fields.Integer,
     'defense': fields.Integer,
-    'special_attack': fields.Integer,
-    'special_defense': fields.Integer,
+    'specialAttack': fields.Integer,
+    'specialDefense': fields.Integer,
     'speed': fields.Integer, 
 })
 
@@ -53,6 +53,14 @@ class PokemonsResource(Resource):
 
         newPokemon = Pokemons()
         newPokemon.name = body['name']
+        newPokemon.height = body['height']
+        newPokemon.weight = body['weight']
+        newPokemon.hp = body['hp']
+        newPokemon.attack = body['attack']
+        newPokemon.defense = body['defense']
+        newPokemon.specialAttack = body['specialAttack']
+        newPokemon.specialDefense = body['specialDefense']
+        newPokemon.speed = body['speed']
 
         db.session.add(newPokemon)
         db.session.commit()
@@ -85,8 +93,8 @@ class PokemonsResource(Resource):
             pokemon.hp = body['hp']
             pokemon.attack = body['attack']
             pokemon.defense = body['defense']
-            pokemon.special_attack = body['special_attack']
-            pokemon.special_defense = body['special_defense']
+            pokemon.specialAttack = body['specialAttack']
+            pokemon.specialDefense = body['specialDefense']
             pokemon.speed = body['speed']
             db.session.commit()
         except:

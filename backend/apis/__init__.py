@@ -5,10 +5,10 @@ from .location_resource import api as locations
 from .game_resource import api as games
 from .hability_resource import api as habilities
 from .move_resource import api as moves
-from .pokemonHabilities_resource import api as pokemonHabilities
+from .pokemon_habilities_resource import api as pokemonHabilities
 from .pokemonMoves_resource import api as pokemonMoves
-from .pokemonLocations_resource import api as pokemonLocations
-from .pokemonGames_resource import api as pokemonGames
+from .pokemon_locations_resource import api as pokemonLocations
+from .pokemon_games_resource import api as pokemonGames
 
 api = Api(
     title='Practica pokemon',

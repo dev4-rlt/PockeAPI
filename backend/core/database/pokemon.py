@@ -1,5 +1,6 @@
 from core.database import db
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 class Pokemons(db.Model):
     __tablename__ = "pokemons"
@@ -11,7 +12,8 @@ class Pokemons(db.Model):
     hp = Column('hp', Integer, nullable=False)
     attack = Column('attack', Integer, nullable=False)
     defense = Column('defense', Integer, nullable=False)
-    special_attack = Column('special_attack', Integer, nullable=False)
-    special_defense = Column('special_defense', Integer, nullable=False)
+    specialAttack = Column('special_attack', Integer, nullable=False)
+    specialDefense = Column('special_defense', Integer, nullable=False)
     speed = Column('speed', Integer, nullable=False)
-    color = Column('color', String, nullable=False)
+
+    pokemonGames = relationship('PokemonGames', back_populates='pokemon')
