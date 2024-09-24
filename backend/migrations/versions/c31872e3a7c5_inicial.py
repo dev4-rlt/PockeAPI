@@ -24,10 +24,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('cod_game')
     )
     op.create_table('habilities',
-    sa.Column('cod_hability', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('cod_ability', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('cod_hability')
+    sa.PrimaryKeyConstraint('cod_ability')
     )
     op.create_table('locations',
     sa.Column('cod_location', sa.Integer(), autoincrement=True, nullable=False),
@@ -62,12 +62,12 @@ def upgrade():
     sa.PrimaryKeyConstraint('cod_pokemon_game')
     )
     op.create_table('pokemon_habilities',
-    sa.Column('cod_pokemon_hability', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('cod_pokemon_ability', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('pokemon_cod', sa.Integer(), nullable=False),
-    sa.Column('hability_cod', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['hability_cod'], ['habilities.cod_hability'], ),
+    sa.Column('ability_cod', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['ability_cod'], ['habilities.cod_ability'], ),
     sa.ForeignKeyConstraint(['pokemon_cod'], ['pokemons.cod_pokemon'], ),
-    sa.PrimaryKeyConstraint('cod_pokemon_hability')
+    sa.PrimaryKeyConstraint('cod_pokemon_ability')
     )
     op.create_table('pokemon_locations',
     sa.Column('cod_pokemon_location', sa.Integer(), autoincrement=True, nullable=False),

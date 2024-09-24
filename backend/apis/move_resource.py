@@ -47,15 +47,15 @@ class MovesResource(Resource):
 
         return newMove
 
-@namespace.route('/<int:codHability>')
-class HabilitysResource(Resource):
+@namespace.route('/<int:codAbility>')
+class AbilitysResource(Resource):
 
     @namespace.marshal_with(moveDetails)
-    def get(self, codHability: int):
-        hability: Moves = db.session.query(Moves).get(codHability)
-        if hability is None:
+    def get(self, codAbility: int):
+        ability: Moves = db.session.query(Moves).get(codAbility)
+        if ability is None:
             abort(404, 'No se encuentra el movimiento buscado')
-        return hability
+        return ability
     
     @namespace.expect(postMove, validate=True)
     @namespace.marshal_with(moveDetails)

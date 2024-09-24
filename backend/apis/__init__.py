@@ -8,7 +8,7 @@ api = Api(
 from .pokemon_resource import namespace as pokemones
 from .location_resource import namespace as locations
 from .game_resource import namespace as games
-from .hability_resource import namespace as habilities
+from .ability_resource import namespace as habilities
 from .move_resource import namespace as moves
 from .pokemon_habilities_resource import namespace as pokemonHabilities
 from .pokemonMoves_resource import namespace as pokemonMoves
@@ -28,4 +28,4 @@ api.add_namespace(pokemonLocations, path='/pokemon-locations')
 api.add_namespace(pokemonGames, path='/pokemon-games')
 
 # Migraciones
-api.add_namespace(migraciones, path='/migracion-pokemon')
+api.add_namespace(migraciones, path='/migracion')

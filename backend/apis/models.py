@@ -6,7 +6,7 @@ locationModel = api.model(name='LocationModel', model={
     'name': fields.String,
 })
 
-habilityModel = api.model(name='HabilityModel', model={
+abilityModel = api.model(name='AbilityModel', model={
     'codHability': fields.Integer,
     'name': fields.String,
     'description': fields.String
@@ -46,13 +46,13 @@ pokemonGameModel = api.model(name='PokemonGameModel', model={
     'gameName': fields.String(attribute='game.name')
 })
 
-pokemonHabilityModel = api.model(name='PokemonHabilityModel', model={
-    'codPokemonHability': fields.Integer,
+pokemonAbilityModel = api.model(name='PokemonAbilityModel', model={
+    'codPokemonAbility': fields.Integer,
     'pokemonCod': fields.Integer,
     'pokemonName': fields.String(attribute='pokemon.name'),
-    'habilityCod': fields.Integer,
-    'habilityName': fields.String(attribute='hability.name'),
-    'habilityDescription': fields.String(attribute='hability.description')
+    'abilityCod': fields.Integer,
+    'abilityName': fields.String(attribute='ability.name'),
+    'abilityDescription': fields.String(attribute='ability.description')
 })
 
 pokemonMoveModel = api.model(name='PokemonMoveModel', model={
@@ -78,10 +78,10 @@ pokemonLocationModel = api.model(name='PokemonLocationModel', model={
 #     'gameCod': fields.Integer,
 # })
 
-# pokemonHabilityModel = api.model(name='PokemonHabilityModel', model={
-#     'codPokemonHability': fields.Integer,
+# pokemonAbilityModel = api.model(name='PokemonAbilityModel', model={
+#     'codPokemonAbility': fields.Integer,
 #     'pokemonCod': fields.Integer,
-#     'habilityCod': fields.Integer,
+#     'abilityCod': fields.Integer,
 # })
 
 # pokemonMoveModel = api.model(name='PokemonMoveModel', model={

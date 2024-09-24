@@ -1,72 +1,72 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, PokemonHabilities
-from apis.models import pokemonHabilityModel
+from apis.models import pokemonAbilityModel
 
 namespace = Namespace('Pokemon Habilities', description='Recurso para pokemons y sus habilidades')
 
-postPokemonHability = namespace.model(name='PostPokemonHability', model={
+postPokemonAbility = namespace.model(name='PostPokemonAbility', model={
     'pokemonCod': fields.Integer,
-    'habilityCod': fields.Integer,
+    'abilityCod': fields.Integer,
 })
 
 @namespace.route('')
-class PokemonHabilityResource(Resource):
+class PokemonAbilityResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('pokemonCod', type=int)
-    parser.add_argument('habilityCod', type=int)
+    parser.add_argument('abilityCod', type=int)
 
     @namespace.expect(parser)
-    @namespace.marshal_with(pokemonHabilityModel, as_list=True)
+    @namespace.marshal_with(pokemonAbilityModel, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         query = db.session.query(PokemonHabilities)
 
         if 'pokemonCod' in args and args['pokemonCod'] != None:
             query = query.filter(PokemonHabilities.pokemonCod == args['pokemonCod'])
-        elif 'habilityCod' in args and args['habilityCod'] != None:
-            query = query.filter(PokemonHabilities.habilityCod == args['habilityCod'])
+        elif 'abilityCod' in args and args['abilityCod'] != None:
+            query = query.filter(PokemonHabilities.abilityCod == args['abilityCod'])
 
         return query.all()
     
-    @namespace.expect(postPokemonHability, validate=True)
-    @namespace.marshal_with(pokemonHabilityModel)
+    @namespace.expect(postPokemonAbility, validate=True)
+    @namespace.marshal_with(pokemonAbilityModel)
     def post(self):
         body = namespace.payload
 
-        newPokemonHability = PokemonHabilities()
-        newPokemonHability.pokemonCod = body['pokemonCod']
-        newPokemonHability.habilityCod = body['habilityCod']
+        newPokemonAbility = PokemonHabilities()
+        newPokemonAbility.pokemonCod = body['pokemonCod']
+        newPokemonAbility.abilityCod = body['abilityCod']
 
-        db.session.add(newPokemonHability)
+        db.session.add(newPokemonAbility)
         db.session.commit()
 
-        return newPokemonHability
+        return newPokemonAbility
 
-@namespace.route('/<int:codPokemonHability>')
+@namespace.route('/<int:codPokemonAbility>')
 class GamesResource(Resource):
 
-    @namespace.marshal_with(pokemonHabilityModel)
-    def get(self, codPokemonHability: int):
-        pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
-        if pokemonHability == None:
+    @namespace.marshal_with(pokemonAbilityModel)
+    def get(self, codPokemonAbility: int):
+        pokemonAbility: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonAbility)
+        if pokemonAbility == None:
             abort(404, 'No se encuentra la habilidad del pokemon que se busca')
-        return pokemonHability
+        return pokemonAbility
     
-    @namespace.expect(postPokemonHability, validate=True)
-    @namespace.marshal_with(pokemonHabilityModel)
-    def put(self, codPokemonHability: int):
+    @namespace.expect(postPokemonAbility, validate=True)
+    @namespace.marshal_with(pokemonAbilityModel)
+    def put(self, codPokemonAbility: int):
         body = namespace.payload
 
-        pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
-        if pokemonHability == None:
+        pokemonAbility: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonAbility)
+        if pokemonAbility == None:
             abort(404, 'No se encuentra la habilidad del pokemon')
 
         try:
-            pokemonHability.pokemonCod = body['pokemonCod']
-            pokemonHability.habilityCod = body['habilityCod']
+            pokemonAbility.pokemonCod = body['pokemonCod']
+            pokemonAbility.abilityCod = body['abilityCod']
             db.session.commit()
         except:
             abort(500)
             
-        return pokemonHability
+        return pokemonAbility

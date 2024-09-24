@@ -1,13 +1,13 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Pokemons
-from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonHabilityModel, pokemonMoveModel
+from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel
 
 namespace = Namespace('Pokemons', description='Recurso para pokemons')
 
 pokemonDetails = namespace.inherit('PokemonDetails', pokemonModel, {
     'pokemonLocations': fields.List(fields.Nested(pokemonLocationModel)),
     'pokemonGames': fields.List(fields.Nested(pokemonGameModel)),
-    'pokemonHabilities': fields.List(fields.Nested(pokemonHabilityModel)),
+    'pokemonHabilities': fields.List(fields.Nested(pokemonAbilityModel)),
     'pokemonMoves': fields.List(fields.Nested(pokemonMoveModel))
 })
 

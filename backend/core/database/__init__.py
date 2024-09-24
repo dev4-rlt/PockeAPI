@@ -9,7 +9,7 @@ from .location import Locations
 from .pokemon import Pokemons
 from .move import Moves
 from .game import Games
-from .hability import Habilities
+from .ability import Habilities
 
 from .pokemon_games import PokemonGames
 from .pokemon_habilities import PokemonHabilities
