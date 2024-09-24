@@ -54,7 +54,7 @@ class HabilitysResource(Resource):
     def get(self, codHability: int):
         hability: Habilities = db.session.query(Habilities).get(codHability)
         if hability is None:
-            abort(404, 'No se encuentra la habilidad')
+            abort(404, 'No se encuentra la habilidad buscada')
         return hability
     
     @namespace.expect(postHability, validate=True)

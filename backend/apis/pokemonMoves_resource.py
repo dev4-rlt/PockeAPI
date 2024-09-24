@@ -50,7 +50,7 @@ class GamesResource(Resource):
     def get(self, codePokemonMove: int):
         pokemonMove: PokemonMoves = db.session.query(PokemonMoves).get(codePokemonMove)
         if pokemonMove == None:
-            abort(404, 'No se encuentra el movimiento del pokemon')
+            abort(404, 'No se encuentra el movimiento del pokemon que se busca')
         return pokemonMove
     
     @namespace.expect(postpokemonMove, validate=True)

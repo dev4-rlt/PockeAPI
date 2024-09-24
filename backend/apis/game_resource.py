@@ -49,7 +49,7 @@ class GamesResource(Resource):
     def get(self, codGame: int):
         game: Games = db.session.query(Games).get(codGame)
         if game == None:
-            abort(404, 'No se encuentra el juego')
+            abort(404, 'No se encuentra el juego buscado')
         return game
     
     @namespace.expect(postGame, validate=True)

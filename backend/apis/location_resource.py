@@ -51,7 +51,7 @@ class LocationsResource(Resource):
     def get(self, codLocation: int):
         location: Locations = db.session.query(Locations).get(codLocation)
         if location == None:
-            abort(404, 'No se encuentra esa locación')
+            abort(404, 'No se encuentra la locación buscada')
         return location
     
     @namespace.expect(postLocation, validate=True)
@@ -61,7 +61,7 @@ class LocationsResource(Resource):
 
         location: Locations = db.session.query(Locations).get(codLocation)
         if location == None:
-            abort(404, 'No se encuentra esa locación')
+            abort(404, 'No se encuentra la locación')
 
         try:
             location.name = body['name']

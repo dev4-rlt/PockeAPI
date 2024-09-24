@@ -69,7 +69,7 @@ class PokemonsResource(Resource):
     def get(self, codPokemon: int):
         pokemon: Pokemons = db.session.query(Pokemons).get(codPokemon)
         if pokemon == None:
-            abort(404, 'No se encuentra el pokemon')
+            abort(404, 'No se encuentra el pokemon buscado')
 
         return pokemon
     

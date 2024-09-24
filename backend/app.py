@@ -16,6 +16,7 @@ DB_NAME = os.getenv('DB_NAME')
 app = Flask(__name__)
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://' + DB_USER + ':' + DB_PASSWORD +  '@' + DB_HOST + ':5432/' + DB_NAME
+app.config['ERROR_404_HELP'] = False
 api.init_app(app)
 db.init_app(app)
 migrate = Migrate(app, db)

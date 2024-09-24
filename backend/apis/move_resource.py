@@ -54,7 +54,7 @@ class HabilitysResource(Resource):
     def get(self, codHability: int):
         hability: Moves = db.session.query(Moves).get(codHability)
         if hability is None:
-            abort(404, 'No se encuentra el movimiento')
+            abort(404, 'No se encuentra el movimiento buscado')
         return hability
     
     @namespace.expect(postMove, validate=True)

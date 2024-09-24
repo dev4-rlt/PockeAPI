@@ -14,7 +14,9 @@ from .pokemon_habilities_resource import namespace as pokemonHabilities
 from .pokemonMoves_resource import namespace as pokemonMoves
 from .pokemon_locations_resource import namespace as pokemonLocations
 from .pokemon_games_resource import namespace as pokemonGames
+from .migraciones_resource import namespace as migraciones
 
+# Pokemons and details
 api.add_namespace(pokemones, path='/pokemons')
 api.add_namespace(locations, path='/locations')
 api.add_namespace(games, path='/games')
@@ -24,3 +26,6 @@ api.add_namespace(pokemonHabilities, path='/pokemon-habilities')
 api.add_namespace(pokemonMoves, path='/pokemon-moves')
 api.add_namespace(pokemonLocations, path='/pokemon-locations')
 api.add_namespace(pokemonGames, path='/pokemon-games')
+
+# Migraciones
+api.add_namespace(migraciones, path='/migracion-pokemon')

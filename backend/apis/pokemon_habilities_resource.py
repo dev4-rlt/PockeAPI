@@ -50,7 +50,7 @@ class GamesResource(Resource):
     def get(self, codPokemonHability: int):
         pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
         if pokemonHability == None:
-            abort(404, 'No se encuentra la habilidad del pokemon')
+            abort(404, 'No se encuentra la habilidad del pokemon que se busca')
         return pokemonHability
     
     @namespace.expect(postPokemonHability, validate=True)
@@ -60,7 +60,7 @@ class GamesResource(Resource):
 
         pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
         if pokemonHability == None:
-            abort(404, 'No se encuentran la habilidad del pokemon')
+            abort(404, 'No se encuentra la habilidad del pokemon')
 
         try:
             pokemonHability.pokemonCod = body['pokemonCod']

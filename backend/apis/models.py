@@ -36,7 +36,6 @@ pokemonModel = api.model(name='PokemonModel', model={
     'speed': fields.Integer
 })
 
-
 # Tablas intermedias
 
 pokemonGameModel = api.model(name='PokemonGameModel', model={
