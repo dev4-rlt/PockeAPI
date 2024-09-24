@@ -1,28 +1,23 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, PokemonMoves
+from apis.models import pokemonMoveModel
 
-api = Namespace('Pokemon Moves', description='Recurso para pokemons y sus movimientos')
+namespace = Namespace('Pokemon Moves', description='Recurso para pokemons y sus movimientos')
 
-basePokemonMove = api.model(name='BasePokemonMove', model={
-    'codPokemonMove': fields.Integer,
+postpokemonMove = namespace.model(name='PostPokemonMove', model={
     'pokemonCod': fields.Integer,
     'moveCod': fields.Integer,
 })
 
-postpokemonMove = api.model(name='PostPokemonMove', model={
-    'pokemonCod': fields.Integer,
-    'moveCod': fields.Integer,
-})
-
-@api.route('')
+@namespace.route('')
 class pokemonMoveResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('pokemonCod', type=int)
     parser.add_argument('moveCod', type=int)
 
-    @api.expect(parser)
-    @api.marshal_with(basePokemonMove, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(pokemonMoveModel, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         query = db.session.query(PokemonMoves)
@@ -34,10 +29,10 @@ class pokemonMoveResource(Resource):
 
         return query.all()
     
-    @api.expect(postpokemonMove, validate=True)
-    @api.marshal_with(basePokemonMove)
+    @namespace.expect(postpokemonMove, validate=True)
+    @namespace.marshal_with(pokemonMoveModel)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newPokemonMove = PokemonMoves()
         newPokemonMove.pokemonCod = body['pokemonCod']
@@ -48,20 +43,20 @@ class pokemonMoveResource(Resource):
 
         return newPokemonMove
 
-@api.route('/<int:codePokemonMove>')
+@namespace.route('/<int:codePokemonMove>')
 class GamesResource(Resource):
 
-    @api.marshal_with(basePokemonMove)
+    @namespace.marshal_with(pokemonMoveModel)
     def get(self, codePokemonMove: int):
         pokemonMove: PokemonMoves = db.session.query(PokemonMoves).get(codePokemonMove)
         if pokemonMove == None:
             abort(404, 'No se encuentra el movimiento del pokemon')
         return pokemonMove
     
-    @api.expect(postpokemonMove, validate=True)
-    @api.marshal_with(basePokemonMove)
+    @namespace.expect(postpokemonMove, validate=True)
+    @namespace.marshal_with(pokemonMoveModel)
     def put(self, codePokemonMove: int):
-        body = api.payload
+        body = namespace.payload
 
         pokemonMove: PokemonMoves = db.session.query(PokemonMoves).get(codePokemonMove)
         if pokemonMove == None:

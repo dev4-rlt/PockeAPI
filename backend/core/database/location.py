@@ -8,4 +8,4 @@ class Locations(db.Model):
     codLocation = Column(name='cod_location', type_=Integer, primary_key=True, autoincrement=True)
     name = Column(name='name', type_=String, nullable=False)
 
-    pokemonLocations = relationship('PokemonLocations', back_populates='location')
+    pokemonsLocation = relationship('PokemonLocations', back_populates='location')

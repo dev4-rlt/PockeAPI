@@ -1,19 +1,19 @@
 from flask_restx import Api
 
-from .pokemon_resource import api as pokemones
-from .location_resource import api as locations
-from .game_resource import api as games
-from .hability_resource import api as habilities
-from .move_resource import api as moves
-from .pokemon_habilities_resource import api as pokemonHabilities
-from .pokemonMoves_resource import api as pokemonMoves
-from .pokemon_locations_resource import api as pokemonLocations
-from .pokemon_games_resource import api as pokemonGames
-
 api = Api(
     title='Practica pokemon',
     version='1.0',
 )
+
+from .pokemon_resource import namespace as pokemones
+from .location_resource import namespace as locations
+from .game_resource import namespace as games
+from .hability_resource import namespace as habilities
+from .move_resource import namespace as moves
+from .pokemon_habilities_resource import namespace as pokemonHabilities
+from .pokemonMoves_resource import namespace as pokemonMoves
+from .pokemon_locations_resource import namespace as pokemonLocations
+from .pokemon_games_resource import namespace as pokemonGames
 
 api.add_namespace(pokemones, path='/pokemons')
 api.add_namespace(locations, path='/locations')

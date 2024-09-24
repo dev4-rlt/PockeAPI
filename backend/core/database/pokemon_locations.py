@@ -10,4 +10,4 @@ class PokemonLocations(db.Model):
     locationCod = Column('location_cod', Integer, ForeignKey('locations.cod_location'), nullable=False)
 
     pokemon = relationship('Pokemons', back_populates='pokemonLocations')
-    location = relationship('Locations', back_populates='pokemonLocations')
+    location = relationship('Locations', back_populates='pokemonsLocation')

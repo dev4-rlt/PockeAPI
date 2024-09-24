@@ -10,4 +10,4 @@ class PokemonHabilities(db.Model):
     habilityCod = Column('hability_cod', Integer, ForeignKey('habilities.cod_hability'), nullable=False)
 
     pokemon = relationship('Pokemons', back_populates='pokemonHabilities')
-    hability = relationship('Habilities', back_populates='pokemonHabilities')
+    hability = relationship('Habilities', back_populates='pokemonsHability')

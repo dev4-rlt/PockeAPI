@@ -1,52 +1,17 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
-from core.database import db, Pokemons, PokemonLocations, Locations
+from core.database import db, Pokemons
+from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonHabilityModel, pokemonMoveModel
 
-api = Namespace('Pokemons', description='Recurso para pokemons')
+namespace = Namespace('Pokemons', description='Recurso para pokemons')
 
-basePokemonLocation = api.model(name='BasePokemonLocation', model={
-    'codPokemonLocation': fields.Integer,
-    'locationCod': fields.Integer,
-    'locationName': fields.String(attribute='location.name')
+pokemonDetails = namespace.inherit('PokemonDetails', pokemonModel, {
+    'pokemonLocations': fields.List(fields.Nested(pokemonLocationModel)),
+    'pokemonGames': fields.List(fields.Nested(pokemonGameModel)),
+    'pokemonHabilities': fields.List(fields.Nested(pokemonHabilityModel)),
+    'pokemonMoves': fields.List(fields.Nested(pokemonMoveModel))
 })
 
-basePokemonGame = api.model(name='BasePokemonGame', model={
-    'codPokemonGame': fields.Integer,
-    'gameCod': fields.Integer,
-    'gameName': fields.String(attribute='game.name')
-})
-
-basePokemonHability = api.model(name='BasePokemonGame', model={
-    'codPokemonHability': fields.Integer,
-    'habilityCod': fields.Integer,
-    'habilityName': fields.String(attribute='hability.name'),
-    'habilityDescription': fields.String(attribute='hability.description')
-})
-
-basePokemonMove = api.model(name='BasePokemonMove', model={
-    'codPokemonMove': fields.Integer,
-    'moveCod': fields.Integer,
-    'moveName': fields.String(attribute='move.name'),
-    'descriptionName': fields.String(attribute='move.description')
-})
-
-basePokemon = api.model(name='BasePokemon', model={
-    'codPokemon': fields.Integer,
-    'name': fields.String,
-    'height': fields.Integer,
-    'weight': fields.Integer,
-    'hp': fields.Integer,
-    'attack': fields.Integer,
-    'defense': fields.Integer,
-    'specialAttack': fields.Integer,
-    'specialDefense': fields.Integer,
-    'speed': fields.Integer,
-    'pokemonLocations': fields.List(fields.Nested(basePokemonLocation)),
-    'pokemonGames': fields.List(fields.Nested(basePokemonGame)),
-    'pokemonHabilities': fields.List(fields.Nested(basePokemonHability)),
-    'pokemonMoves': fields.List(fields.Nested(basePokemonMove))
-})
-
-postPokemon = api.model(name='PostPokemon', model={
+postPokemon = namespace.model(name='PostPokemon', model={
     'name': fields.String,
     'height': fields.Integer,
     'weight': fields.Integer,
@@ -58,14 +23,14 @@ postPokemon = api.model(name='PostPokemon', model={
     'speed': fields.Integer, 
 })
 
-@api.route('')
+@namespace.route('')
 class PokemonsResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
 
-    @api.expect(parser)
-    @api.marshal_with(basePokemon, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(pokemonDetails, as_list=True)
     def get(self):
         args = self.parser.parse_args()
 
@@ -76,10 +41,10 @@ class PokemonsResource(Resource):
 
         return query.all()
 
-    @api.expect(postPokemon, validate=True)
-    @api.marshal_with(basePokemon)
+    @namespace.expect(postPokemon, validate=True)
+    @namespace.marshal_with(pokemonDetails)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newPokemon = Pokemons()
         newPokemon.name = body['name']
@@ -97,10 +62,10 @@ class PokemonsResource(Resource):
 
         return newPokemon
     
-@api.route('/<int:codPokemon>')
+@namespace.route('/<int:codPokemon>')
 class PokemonsResource(Resource):
 
-    @api.marshal_with(basePokemon)
+    @namespace.marshal_with(pokemonDetails)
     def get(self, codPokemon: int):
         pokemon: Pokemons = db.session.query(Pokemons).get(codPokemon)
         if pokemon == None:
@@ -108,10 +73,10 @@ class PokemonsResource(Resource):
 
         return pokemon
     
-    @api.expect(postPokemon, validate=True)
-    @api.marshal_with(basePokemon)
+    @namespace.expect(postPokemon, validate=True)
+    @namespace.marshal_with(pokemonDetails)
     def put(self, codPokemon: int):
-        body = api.payload
+        body = namespace.payload
 
         pokemon: Pokemons = db.session.query(Pokemons).get(codPokemon)
         if pokemon == None:

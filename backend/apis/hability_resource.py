@@ -1,27 +1,26 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Habilities
+from apis.models import habilityModel, pokemonHabilityModel
 
-api = Namespace('Hability', description='Recurso para habilidades')
+namespace = Namespace('Hability', description='Recurso para habilidades')
 
-baseHability = api.model(name='BaseHability', model={
-    'codHability': fields.Integer,
+habilityDetails = namespace.inherit('HabilityDetails', habilityModel, {
+    'pokemonsHability': fields.List(fields.Nested(pokemonHabilityModel))
+})
+
+postHability = namespace.model(name='PostHability', model={
     'name': fields.String,
     'description': fields.String,
 })
 
-postHability = api.model(name='PostHability', model={
-    'name': fields.String,
-    'description': fields.String,
-})
-
-@api.route('')
+@namespace.route('')
 class HabilitiesResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
 
-    @api.expect(parser)
-    @api.marshal_with(baseHability, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(habilityDetails, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         
@@ -32,10 +31,10 @@ class HabilitiesResource(Resource):
 
         return query.all()
     
-    @api.expect(postHability, validate=True)
-    @api.marshal_with(baseHability)
+    @namespace.expect(postHability, validate=True)
+    @namespace.marshal_with(habilityDetails)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newHability = Habilities()
         newHability.name = body['name']
@@ -48,20 +47,20 @@ class HabilitiesResource(Resource):
 
         return newHability
 
-@api.route('/<int:codHability>')
+@namespace.route('/<int:codHability>')
 class HabilitysResource(Resource):
 
-    @api.marshal_with(baseHability)
+    @namespace.marshal_with(habilityDetails)
     def get(self, codHability: int):
         hability: Habilities = db.session.query(Habilities).get(codHability)
         if hability is None:
             abort(404, 'No se encuentra la habilidad')
         return hability
     
-    @api.expect(postHability, validate=True)
-    @api.marshal_with(baseHability)
+    @namespace.expect(postHability, validate=True)
+    @namespace.marshal_with(habilityDetails)
     def put(self, codHability: int):
-        body = api.payload
+        body = namespace.payload
 
         hability: Habilities = db.session.query(Habilities).get(codHability)
         if hability == None:

@@ -9,4 +9,4 @@ class Moves(db.Model):
     name = Column(name='name', type_=String, nullable=False)
     description = Column(name='description', type_=String, nullable=True)
 
-    pokemonMoves = relationship('PokemonMoves', back_populates='move')
+    pokemonsMove = relationship('PokemonMoves', back_populates='move')

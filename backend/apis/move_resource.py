@@ -1,27 +1,26 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Moves
+from apis.models import moveModel, pokemonMoveModel
 
-api = Namespace('Moves', description='Recurso para movimientos')
+namespace = Namespace('Moves', description='Recurso para movimientos')
 
-baseMove = api.model(name='BaseMove', model={
-    'codMove': fields.Integer,
-    'name': fields.String,
-    'description': fields.String,
+moveDetails = namespace.inherit('MoveDetails', moveModel, {
+    'pokemonsMove': fields.List(fields.Nested(pokemonMoveModel))
 })
 
-postMove = api.model(name='PostMove', model={
+postMove = namespace.model(name='PostMove', model={
     'name': fields.String,
     'description': fields.String
 })
 
-@api.route('')
+@namespace.route('')
 class MovesResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
 
-    @api.expect(parser)
-    @api.marshal_with(baseMove, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(moveDetails, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         
@@ -32,10 +31,10 @@ class MovesResource(Resource):
 
         return query.all()
     
-    @api.expect(postMove, validate=True)
-    @api.marshal_with(baseMove)
+    @namespace.expect(postMove, validate=True)
+    @namespace.marshal_with(moveDetails)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newMove = Moves()
         newMove.name = body['name']
@@ -48,20 +47,20 @@ class MovesResource(Resource):
 
         return newMove
 
-@api.route('/<int:codHability>')
+@namespace.route('/<int:codHability>')
 class HabilitysResource(Resource):
 
-    @api.marshal_with(baseMove)
+    @namespace.marshal_with(moveDetails)
     def get(self, codHability: int):
         hability: Moves = db.session.query(Moves).get(codHability)
         if hability is None:
             abort(404, 'No se encuentra el movimiento')
         return hability
     
-    @api.expect(postMove, validate=True)
-    @api.marshal_with(baseMove)
+    @namespace.expect(postMove, validate=True)
+    @namespace.marshal_with(moveDetails)
     def put(self, codMove: int):
-        body = api.payload
+        body = namespace.payload
 
         move: Moves = db.session.query(Moves).get(codMove)
         if move == None:

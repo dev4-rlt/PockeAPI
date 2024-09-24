@@ -1,25 +1,25 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Games
+from apis.models import gameModel, pokemonGameModel
 
-api = Namespace('Games', description='Recurso para juegos')
+namespace = Namespace('Games', description='Recurso para juegos')
 
-baseGame = api.model(name='BaseGame', model={
-    'codGame': fields.Integer,
+gameDetails = namespace.inherit('GameDetails', gameModel, {
+    'pokemonsGame': fields.List(fields.Nested(pokemonGameModel))
+})
+
+postGame = namespace.model(name='PostGame', model={
     'name': fields.String,
 })
 
-postGame = api.model(name='PostGame', model={
-    'name': fields.String,
-})
-
-@api.route('')
+@namespace.route('')
 class GamesResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
 
-    @api.expect(parser)
-    @api.marshal_with(baseGame, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(gameDetails, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         query = db.session.query(Games)
@@ -29,10 +29,10 @@ class GamesResource(Resource):
 
         return query.all()
     
-    @api.expect(postGame, validate=True)
-    @api.marshal_with(baseGame)
+    @namespace.expect(postGame, validate=True)
+    @namespace.marshal_with(gameDetails)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newGame = Games()
         newGame.name = body['name']
@@ -42,20 +42,20 @@ class GamesResource(Resource):
 
         return newGame
 
-@api.route('/<int:codGame>')
+@namespace.route('/<int:codGame>')
 class GamesResource(Resource):
 
-    @api.marshal_with(baseGame)
+    @namespace.marshal_with(gameDetails)
     def get(self, codGame: int):
         game: Games = db.session.query(Games).get(codGame)
         if game == None:
             abort(404, 'No se encuentra el juego')
         return game
     
-    @api.expect(postGame, validate=True)
-    @api.marshal_with(baseGame)
+    @namespace.expect(postGame, validate=True)
+    @namespace.marshal_with(gameDetails)
     def put(self, codGame: int):
-        body = api.payload
+        body = namespace.payload
 
         game: Games = db.session.query(Games).get(codGame)
         if game == None:

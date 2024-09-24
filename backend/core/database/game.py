@@ -8,4 +8,4 @@ class Games(db.Model):
     codGame = Column(name='cod_game', type_=Integer, primary_key=True, autoincrement=True)
     name = Column(name='name', type_=String, nullable=False)
 
-    pokemonGames = relationship('PokemonGames', back_populates='game')
+    pokemonsGame = relationship('PokemonGames', back_populates='game')

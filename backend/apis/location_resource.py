@@ -1,25 +1,25 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Locations
+from apis.models import locationModel, pokemonLocationModel
 
-api = Namespace('Locations', description='Recurso para locaciones')
+namespace = Namespace('Locations', description='Recurso para locaciones')
 
-baseLocation = api.model(name='BaseLocation', model={
-    'codLocation': fields.Integer,
-    'name': fields.String,
+locationDetails = namespace.inherit('LocationDetails', locationModel, {
+    'pokemonsLocation': fields.List(fields.Nested(pokemonLocationModel))
 })
 
-postLocation = api.model(name='PostLocation', model={
+postLocation = namespace.model(name='PostLocation', model={
     'name': fields.String
 })
 
-@api.route('')
+@namespace.route('')
 class LocationsResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
 
-    @api.expect(parser)
-    @api.marshal_with(baseLocation, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(locationDetails, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         
@@ -31,10 +31,10 @@ class LocationsResource(Resource):
 
         return query.all()
     
-    @api.expect(postLocation, validate=True)
-    @api.marshal_with(baseLocation)
+    @namespace.expect(postLocation, validate=True)
+    @namespace.marshal_with(locationDetails)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newLocation = Locations()
         newLocation.name = body['name']
@@ -44,20 +44,20 @@ class LocationsResource(Resource):
 
         return newLocation
 
-@api.route('/<int:codLocation>')
+@namespace.route('/<int:codLocation>')
 class LocationsResource(Resource):
 
-    @api.marshal_with(baseLocation)
+    @namespace.marshal_with(locationDetails)
     def get(self, codLocation: int):
         location: Locations = db.session.query(Locations).get(codLocation)
         if location == None:
             abort(404, 'No se encuentra esa locación')
         return location
     
-    @api.expect(postLocation, validate=True)
-    @api.marshal_with(baseLocation)
+    @namespace.expect(postLocation, validate=True)
+    @namespace.marshal_with(locationDetails)
     def put(self, codLocation: int):
-        body = api.payload
+        body = namespace.payload
 
         location: Locations = db.session.query(Locations).get(codLocation)
         if location == None:

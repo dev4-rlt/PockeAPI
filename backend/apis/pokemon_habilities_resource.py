@@ -1,28 +1,23 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, PokemonHabilities
+from apis.models import pokemonHabilityModel
 
-api = Namespace('Pokemon Habilities', description='Recurso para pokemons y sus habilidades')
+namespace = Namespace('Pokemon Habilities', description='Recurso para pokemons y sus habilidades')
 
-basePokemonHability = api.model(name='BasePokemonHability', model={
-    'codPokemonHability': fields.Integer,
+postPokemonHability = namespace.model(name='PostPokemonHability', model={
     'pokemonCod': fields.Integer,
     'habilityCod': fields.Integer,
 })
 
-postPokemonHability = api.model(name='PostPokemonHability', model={
-    'pokemonCod': fields.Integer,
-    'habilityCod': fields.Integer,
-})
-
-@api.route('')
+@namespace.route('')
 class PokemonHabilityResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('pokemonCod', type=int)
     parser.add_argument('habilityCod', type=int)
 
-    @api.expect(parser)
-    @api.marshal_with(basePokemonHability, as_list=True)
+    @namespace.expect(parser)
+    @namespace.marshal_with(pokemonHabilityModel, as_list=True)
     def get(self):
         args = self.parser.parse_args()
         query = db.session.query(PokemonHabilities)
@@ -34,10 +29,10 @@ class PokemonHabilityResource(Resource):
 
         return query.all()
     
-    @api.expect(postPokemonHability, validate=True)
-    @api.marshal_with(basePokemonHability)
+    @namespace.expect(postPokemonHability, validate=True)
+    @namespace.marshal_with(pokemonHabilityModel)
     def post(self):
-        body = api.payload
+        body = namespace.payload
 
         newPokemonHability = PokemonHabilities()
         newPokemonHability.pokemonCod = body['pokemonCod']
@@ -48,20 +43,20 @@ class PokemonHabilityResource(Resource):
 
         return newPokemonHability
 
-@api.route('/<int:codPokemonHability>')
+@namespace.route('/<int:codPokemonHability>')
 class GamesResource(Resource):
 
-    @api.marshal_with(basePokemonHability)
+    @namespace.marshal_with(pokemonHabilityModel)
     def get(self, codPokemonHability: int):
         pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
         if pokemonHability == None:
             abort(404, 'No se encuentra la habilidad del pokemon')
         return pokemonHability
     
-    @api.expect(postPokemonHability, validate=True)
-    @api.marshal_with(basePokemonHability)
+    @namespace.expect(postPokemonHability, validate=True)
+    @namespace.marshal_with(pokemonHabilityModel)
     def put(self, codPokemonHability: int):
-        body = api.payload
+        body = namespace.payload
 
         pokemonHability: PokemonHabilities = db.session.query(PokemonHabilities).get(codPokemonHability)
         if pokemonHability == None:
