@@ -6,7 +6,7 @@
               <div class="text-4xl font-bold text-gray-900">Pokemons</div>
               <br/>
               <div class="flex flex-row">
-                <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-3x text-gray-500 mr-10 my-auto cursor-not-allowed"></i>
+                <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-3x mr-10 my-auto" [ngClass]="[backButtonColor, backButtonCursor]"></i>
                 <div class="mt-6 space-y-12 lg:grid lg:grid-cols-5 lg:gap-x-6 lg:space-y-0 w-full">
                     @for (pokemon of basePokemons; track pokemon.codPokemon) {
                       <div class="group relative">
@@ -22,7 +22,7 @@
                       </div>
                     }
                 </div>
-                <i id="advanceButton" class="fa-solid fa-chevron-right fa-3x text-blue-950 ml-10 my-auto cursor-pointer" (click)="advance()"></i>
+                <i id="advanceButton" (click)="advance()" class="fa-solid fa-chevron-right fa-3x ml-10 my-auto" [ngClass]="[advanceButtonColor, advanceButtonCursor]"></i>
               </div>
             </div>
           </div>

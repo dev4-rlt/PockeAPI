@@ -3,11 +3,12 @@ import { PokeapiService } from '../services/pokeapi.service';
 import { RouterOutlet } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { BasePokemon } from '../interfaces/base-pokemon';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-listado',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgClass],
   templateUrl: './listado.component.html'
 })
 
@@ -19,6 +20,11 @@ export class ListadoComponent {
   offsetPokemons: number = 0;
   limitPokemons: number = 25;
 
+  backButtonColor: string = 'text-gray-500';
+  backButtonCursor: string = 'cursor-not-allowed';
+  advanceButtonColor: string = 'text-blue-950';
+  advanceButtonCursor: string = 'cursor-pointer';
+
   constructor(
     private pokemonService: PokeapiService
   ) {
@@ -26,23 +32,23 @@ export class ListadoComponent {
   }
 
   blockAdvanceButton() {
-    let advanceButton = document.getElementById('advanceButton');
-    if (advanceButton) advanceButton.className = 'fa-solid fa-3x fa-chevron-right text-gray-500 ml-10 my-auto cursor-not-allowed';
+    this.advanceButtonColor = 'text-gray-500';
+    this.advanceButtonCursor = 'cursor-not-allowed';
   }
 
   allowAdvanceButton() {
-    let advanceButton = document.getElementById('advanceButton');
-    if (advanceButton) advanceButton.className = 'fa-solid fa-3x fa-chevron-right text-blue-950 ml-10 my-auto cursor-pointer';
+    this.advanceButtonColor = 'text-blue-950';
+    this.advanceButtonCursor = 'cursor-pointer';
   }
 
   blockBackButton() {
-    let backButton = document.getElementById('backButton');
-    if (backButton) backButton.className = 'fa-solid fa-3x fa-chevron-left text-gray-500 mr-10 my-auto cursor-not-allowed';
+    this.backButtonColor = 'text-gray-500';
+    this.backButtonCursor = 'cursor-not-allowed';
   }
 
   allowBackButton() {
-    let backButton = document.getElementById('backButton');
-    if (backButton) backButton.className = 'fa-solid fa-3x fa-chevron-left text-blue-950 mr-10 my-auto cursor-pointer';
+    this.backButtonColor = 'text-blue-950';
+    this.backButtonCursor = 'cursor-pointer';
   }
 
   getPokemons() {
