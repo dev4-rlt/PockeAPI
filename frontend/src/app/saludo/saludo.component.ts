@@ -9,4 +9,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class SaludoComponent {
 
+  constructor() {
+    document.title = 'Bienvenido'
+  }
 }

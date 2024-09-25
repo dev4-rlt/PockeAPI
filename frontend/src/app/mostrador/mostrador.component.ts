@@ -12,4 +12,8 @@ import { DetalleComponent } from "../detalle/detalle.component";
 
 export class MostradorComponent {
   codPokemon: number | null = null;
+
+  constructor() {
+    document.title = 'Lista de Pokemons'
+  }
 }
