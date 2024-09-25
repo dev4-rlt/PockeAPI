@@ -30,7 +30,7 @@ class PokemonsResource(Resource):
     parser.add_argument('name', type=str)
 
     @namespace.expect(parser)
-    @namespace.marshal_with(pokemonDetails, as_list=True)
+    @namespace.marshal_with(pokemonModel, as_list=True)
     def get(self):
         args = self.parser.parse_args()
 
@@ -42,7 +42,7 @@ class PokemonsResource(Resource):
         return query.all()
 
     @namespace.expect(postPokemon, validate=True)
-    @namespace.marshal_with(pokemonDetails)
+    @namespace.marshal_with(pokemonModel)
     def post(self):
         body = namespace.payload
 
@@ -56,11 +56,26 @@ class PokemonsResource(Resource):
         newPokemon.specialAttack = body['specialAttack']
         newPokemon.specialDefense = body['specialDefense']
         newPokemon.speed = body['speed']
+        newPokemon.spriteFrontDefault = body['spriteFrontDefault']
+        newPokemon.spriteFrontShiny = body['spriteFrontShiny']
 
         db.session.add(newPokemon)
         db.session.commit()
 
         return newPokemon
+    
+@namespace.route('/details/<int:codPokemon>')
+class PokemonsDetailsResource(Resource):
+    @namespace.marshal_with(pokemonDetails, as_list=True)
+    def get(self):
+        args = self.parser.parse_args()
+
+        query = db.session.query(Pokemons)
+
+        if 'codPokemon' in args and args['codPokemon'] != None:
+            query = query.filter(Pokemons.codPokemon == args['codPokemon'])
+
+        return query.all()
     
 @namespace.route('/<int:codPokemon>')
 class PokemonsResource(Resource):
@@ -92,6 +107,8 @@ class PokemonsResource(Resource):
             pokemon.specialAttack = body['specialAttack']
             pokemon.specialDefense = body['specialDefense']
             pokemon.speed = body['speed']
+            pokemon.spriteFrontDefault = body['spriteFrontDefault']
+            pokemon.spriteFrontShiny = body['spriteFrontShiny']
             db.session.commit()
         except:
             abort(500)

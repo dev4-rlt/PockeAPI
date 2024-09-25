@@ -6,7 +6,7 @@
     <dt class="capitalize text-base font-semibold leading-7 text-gray-900 items-center">
       {{titulo}}
     </dt>
-    @if (descripcion) {
+    @if (descripcion && descripcion.length > 0) {
       <dd class="mt-2 text-base leading-7 text-gray-600 text-wrap w-60 text-left">{{descripcion}}</dd>
     }
   </div>

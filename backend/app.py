@@ -19,7 +19,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://' + DB_USER + ':'
 app.config['ERROR_404_HELP'] = False
 api.init_app(app)
 db.init_app(app)
+
+# Migracion con Flask-Migrate (Alembic)
 migrate = Migrate(app, db)
+# flask db init
+# flask db migrate -m "Initial migration"
+# flask db upgrade
+# flask db downgrade
+# flask db --help
 
 if __name__ == '__main__':
     app.run(debug=True)

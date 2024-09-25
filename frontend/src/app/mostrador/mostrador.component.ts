@@ -11,5 +11,5 @@ import { DetalleComponent } from "../detalle/detalle.component";
 })
 
 export class MostradorComponent {
-  url = '';
+  codPokemon: number | null = null;
 }

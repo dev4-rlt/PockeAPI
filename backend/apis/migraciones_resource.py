@@ -37,6 +37,7 @@ class PokemonMigration(Resource):
             newPokemon.name = pokemon['name'].capitalize()
             newPokemon.height = pokemonInfo['height']
             newPokemon.weight = pokemonInfo['weight']
+            self.setSprites(pokemonInfo['sprites'], newPokemon)
             
             for stat in pokemonInfo['stats']:
                 self.setStatValue(stat, newPokemon)
@@ -75,12 +76,19 @@ class PokemonMigration(Resource):
             
             locations = requests.get(pokemonInfo['location_area_encounters']).json()
             for location in locations:
-                savedLocation: Locations = db.session.query(Locations).filter(Locations.name == location['location_area']['name'].capitalize()).first()
+                words: list[str] = location['location_area']['name'].split('-')
+                
+                locationName = ''
+                for word in words:
+                    locationName += word.capitalize() + ' '
+                locationName.strip()
+
+                savedLocation: Locations = db.session.query(Locations).filter(Locations.name == locationName).first()
 
                 pokemonLocation = PokemonLocations()
                 if savedLocation is None:
                     newLocation = Locations()
-                    newLocation.name = location['location_area']['name'].capitalize()
+                    newLocation.name = locationName
 
                     db.session.add(newLocation)
                     pokemonLocation.location = newLocation
@@ -127,6 +135,10 @@ class PokemonMigration(Resource):
             pokemon.specialDefense = value
         elif name == 'speed':
             pokemon.speed = value
+
+    def setSprites(sprites, pokemon: Pokemons):
+        pokemon.spriteFrontDefault = sprites['front_default']
+        pokemon.spriteFrontShiny = sprites['front_shiny']
 
 @namespace.route('/abilities')
 class AbilityMigration(Resource):
@@ -198,13 +210,19 @@ class LocationMigration(Resource):
 
         locations: list[Locations] = []
         for location in res['results']:
-            savedLocation: Locations = db.session.query(Locations).filter(Locations.name == location['name'].capitalize()).first()  
+
+            words: list[str] = location['name'].split('-')
+            locationName = ''
+            for word in words:
+                locationName += word.capitalize() + ' '
+            locationName.strip()
+            
+            savedLocation: Locations = db.session.query(Locations).filter(Locations.name == locationName).first()
             if savedLocation is not None:
                 continue
 
             newLocation = Locations()
-            newLocation.name = location['name'].capitalize()
-
+            newLocation.name = locationName
             locations.append(newLocation)
         
         db.session.add_all(locations)
@@ -241,4 +259,3 @@ class MoveMigration(Resource):
         db.session.commit()
 
         return 'OK'
-

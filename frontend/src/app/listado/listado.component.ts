@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokeapiService } from '../services/pokeapi.service';
 import { RouterOutlet } from '@angular/router';
-import { PagedPokemons } from '../interfaces/paged-pokemons';
 import { HttpParams } from '@angular/common/http';
+import { BasePokemon } from '../interfaces/base-pokemon';
 
 @Component({
   selector: 'app-listado',
@@ -13,9 +13,9 @@ import { HttpParams } from '@angular/common/http';
 
 export class ListadoComponent {
 
-  @Output() urlOutput = new EventEmitter<string>();
+  @Output() codOutput = new EventEmitter<number>();
 
-  pagedPokemons: PagedPokemons | null = null;//Corregir tipo de dato
+  basePokemons: BasePokemon[] | null = null;
   originalLocation: string;
 
   constructor(
@@ -26,13 +26,13 @@ export class ListadoComponent {
   }
 
   getPokemons() {
-    let params = new HttpParams().append('limit', 5).append('offset', 5);
+    let params = new HttpParams().append('limit', 10).append('offset', 5);
 
-    this.pokemonService.getPagedPokemons(params).subscribe({
+    this.pokemonService.getBasePokemons(params).subscribe({
       next: res => {
-        this.pagedPokemons = res;
+        this.basePokemons = res;
       }, error: err => {
-        this.pagedPokemons = null;
+        this.basePokemons = null;
         console.log(err);
         alert("Ha ocurrido un error obteniendo los pokemons");
       }
@@ -40,7 +40,7 @@ export class ListadoComponent {
 
   }
 
-  showPokemon(urlPokemon: string) {
-    this.urlOutput.emit(urlPokemon);
+  showPokemon(codPokemon: number) {
+    this.codOutput.emit(codPokemon);
   }
 }

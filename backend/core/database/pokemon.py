@@ -15,6 +15,8 @@ class Pokemons(db.Model):
     specialAttack = Column('special_attack', Integer, nullable=False)
     specialDefense = Column('special_defense', Integer, nullable=False)
     speed = Column('speed', Integer, nullable=False)
+    spriteFrontDefault = Column('sprite_front_default', String)
+    spriteFrontShiny = Column('sprite_front_shiny', String)
 
     pokemonLocations = relationship('PokemonLocations', back_populates='pokemon')
     pokemonHabilities = relationship('PokemonHabilities', back_populates='pokemon')

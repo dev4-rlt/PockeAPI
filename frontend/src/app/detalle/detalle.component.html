@@ -5,18 +5,18 @@
       <!-- Características y estadísticas -->
       <div>
         <div class="flex justify-evenly items-center max-w-7xl m-auto">
-          <img src={{this.details.sprites.front_default}} alt={{this.details.name}} width="250px" class="object-fill">
+          <img src={{this.details.spriteFrontDefault}} alt={{this.details.name}} width="250px" class="object-fill">
           <p class="uppercase mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {{this.details.name}}
           </p>
-          <img src={{this.details.sprites.front_shiny}} alt={{this.details.name}} width="250px" class="object-fill">
+          <img src={{this.details.spriteFrontShiny}} alt={{this.details.name}} width="250px" class="object-fill">
         </div>
 
         <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8 ">
           <div class="rounded-lg px-4 bg-blue-300 border-gray-400 border-2">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
             <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
-              <app-stat-pokemon name="ID" [value]="this.details.id"/>
+              <app-stat-pokemon name="ID" [value]="this.details.codPokemon"/>
               <app-stat-pokemon name="Altura" [value]="this.details.height"/>
               <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
             </dl>
@@ -25,12 +25,14 @@
             <br />
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
             <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
-              @for (stat of this.details.stats; track stat.stat.name) {
-                <app-stat-pokemon 
-                  [name]="stat.stat.name == 'hp'? 'HP': stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1,stat.stat.name.length)"
-                  [value]="stat.base_stat"
-                />
-              }
+              <app-stat-pokemon name="Attack" [value]="this.details.attack" />
+              <app-stat-pokemon name="Defense" [value]="this.details.defense" />
+              <app-stat-pokemon name="Height" [value]="this.details.height" />
+              <app-stat-pokemon name="Weight" [value]="this.details.weight" />
+              <app-stat-pokemon name="HP" [value]="this.details.hp" />
+              <app-stat-pokemon name="Special Attak" [value]="this.details.specialAttack" />
+              <app-stat-pokemon name="Special Defense" [value]="this.details.specialDefense" />
+              <app-stat-pokemon name="Speed" [value]="this.details.speed" />
               <br />
             </dl>
           </div>
@@ -43,11 +45,11 @@
 
       <!-- Habilidades -->
       <app-seccion-pokemon title="Habilidades" >
-        @if (details.abilities.length > 0) {
-          @for (abilityInfo of details.abilities; track abilityInfo.ability.name) {
+        @if (details.pokemonHabilities.length > 0) {
+          @for (ability of details.pokemonHabilities; track ability.abilityCod) {
             <app-detalle-pokemon
-              [titulo]="abilityInfo.ability.name"
-              [descripcion]="abilityInfo.ability.description"
+              [titulo]="ability.abilityName"
+              [descripcion]="ability.abilityDescription"
               iconName="fa-star"
               iconColor="text-green-700"
               backgroundColor="bg-lime-100"
@@ -64,11 +66,11 @@
 
       <!-- Movimientos -->
       <app-seccion-pokemon title="Movimientos" >
-        @if (details.moves.length > 0) {
-          @for (moveInfo of details.moves; track moveInfo.move.name) {
+        @if (details.pokemonMoves.length > 0) {
+          @for (move of details.pokemonMoves; track move.moveCod) {
           <app-detalle-pokemon
-            [titulo]="moveInfo.move.name.charAt(0).toUpperCase() + moveInfo.move.name.slice(1, moveInfo.move.name.length)"
-            [descripcion]="moveInfo.move.description"
+            [titulo]="move.moveName"
+            [descripcion]="move.moveDescription"
             iconName="fa-wheelchair-move"
             iconColor="text-purple-700"
             backgroundColor="bg-violet-300" />
@@ -84,10 +86,10 @@
 
       <!-- Lugares -->
       <app-seccion-pokemon title="¿Dónde encontrarlo?">
-        @if (details.locations.length > 0) {
-          @for (location of details.locations; track $index) {
+        @if (details.pokemonLocations.length > 0) {
+          @for (location of details.pokemonLocations; track location.locationCod) {
             <app-detalle-pokemon
-              [titulo]="location.location.name"
+              [titulo]="location.locationName"
               iconName="fa-map-location-dot"
               iconColor="text-stone-600"
               backgroundColor="bg-stone-300"
@@ -104,10 +106,10 @@
 
       <!-- Juegos -->
       <app-seccion-pokemon title="Juegos en los que aparece" >
-        @if (details.game_indices.length > 0) {
-          @for (game of details.game_indices; track $index) {
+        @if (details.pokemonGames.length > 0) {
+          @for (game of details.pokemonGames; track game.gameCod) {
             <app-detalle-pokemon
-              [titulo]="game.version.name"
+              [titulo]="game.gameName"
               iconName="fa-gamepad"
               iconColor="text-red-600"
               backgroundColor="bg-red-300"

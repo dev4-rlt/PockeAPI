@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PagedPokemons } from '../interfaces/paged-pokemons';
+import { BasePokemon } from '../interfaces/base-pokemon';
 import { Observable } from 'rxjs';
-import { EffectDetails, Location, LocationInfo, PokemonDetail } from '../interfaces/pokemon-details';
+import { Location, PokemonDetail } from '../interfaces/pokemon-details';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +13,12 @@ export class PokeapiService {
 
   constructor(private http: HttpClient) { }
 
-  getPagedPokemons(params: HttpParams): Observable<PagedPokemons> {
-    return this.http.get<PagedPokemons>(`${this.API}/pokemons`, { params: params});
+  getBasePokemons(params: HttpParams): Observable<BasePokemon[]> {
+    return this.http.get<BasePokemon[]>(`${this.API}/pokemons`, { params: params});
   }
 
-  getPokemonDetails(urlPokemon: string): Observable<PokemonDetail> {
-    return this.http.get<PokemonDetail>(urlPokemon);
-  }
-
-  getEffectDescription(urlEffect: string): Observable<EffectDetails> {
-    return this.http.get<EffectDetails>(urlEffect);
-  }
-
-  getLocations(urlLocations: string): Observable<Location[]> {
-    return this.http.get<Location[]>(urlLocations);
-  }
-
-  getLocationName(urlLocation: string): Observable<LocationInfo> {
-    return this.http.get<LocationInfo>(urlLocation);
+  getPokemonDetails(params: HttpParams): Observable<PokemonDetail> {
+    return this.http.get<PokemonDetail>(`${this.API}/pokemons/details`, { params: params});
   }
 
 }
