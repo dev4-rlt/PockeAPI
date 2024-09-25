@@ -1,24 +1,28 @@
 <section class="text-center">
   @if (basePokemons != null) {
-      <div class="bg-gray-50 rounded-md mt-20 mx-20">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="bg-gray-50 rounded-md m-20">
+          <div class="mx-20 max-w-full px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
               <div class="text-4xl font-bold text-gray-900">Pokemons</div>
               <br/>
-              <div class="mt-6 space-y-12 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0">
-                  @for (pokemon of basePokemons; track pokemon.codPokemon) {
-                    <div class="group relative">
-                      <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div class="absolute left-2 top-1 flex h-7 w-7 items-center justify-center rounded-lg">
-                          <i class="fa-solid fa-eye fa-xl"></i>                           
-                        </div>
-                        <div (click)="showPokemon(pokemon.codPokemon)" class="capitalize cursor-pointer mb-6 bg-indigo-500 text-base font-semibold text-gray-900 relative w-full overflow-hidden rounded-lg sm:aspect-w-2 group-hover:opacity-75 sm:h-20">
-                          <br/>
-                          {{pokemon.name}}
-                        </div>
-                      </dt>
-                    </div>
-                  }
+              <div class="flex flex-row">
+                <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-3x text-gray-500 mr-10 my-auto cursor-not-allowed"></i>
+                <div class="mt-6 space-y-12 lg:grid lg:grid-cols-5 lg:gap-x-6 lg:space-y-0 w-full">
+                    @for (pokemon of basePokemons; track pokemon.codPokemon) {
+                      <div class="group relative">
+                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                          <div class="absolute left-2 top-1 flex h-7 w-7 items-center justify-center rounded-lg">
+                            <i class="fa-solid fa-eye fa-xl"></i>                           
+                          </div>
+                          <div (click)="showPokemon(pokemon.codPokemon)" class="capitalize cursor-pointer mb-6 bg-indigo-500 text-base font-semibold text-gray-900 relative w-full overflow-hidden rounded-lg sm:aspect-w-2 group-hover:opacity-75 sm:h-20">
+                            <br/>
+                            {{pokemon.name}}
+                          </div>
+                        </dt>
+                      </div>
+                    }
+                </div>
+                <i id="advanceButton" class="fa-solid fa-chevron-right fa-3x text-blue-950 ml-10 my-auto cursor-pointer" (click)="advance()"></i>
               </div>
             </div>
           </div>

@@ -136,7 +136,7 @@ class PokemonMigration(Resource):
         elif name == 'speed':
             pokemon.speed = value
 
-    def setSprites(sprites, pokemon: Pokemons):
+    def setSprites(self, sprites, pokemon: Pokemons):
         pokemon.spriteFrontDefault = sprites['front_default']
         pokemon.spriteFrontShiny = sprites['front_shiny']
 

@@ -28,6 +28,8 @@ class PokemonsResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
+    parser.add_argument('offset', type=int)
+    parser.add_argument('limit', type=int)
 
     @namespace.expect(parser)
     @namespace.marshal_with(pokemonModel, as_list=True)
@@ -38,6 +40,16 @@ class PokemonsResource(Resource):
 
         if 'name' in args and args['name'] != None:
             query = query.filter(Pokemons.name.like('%'+args['name']+'%'))
+
+        query = query.order_by(Pokemons.codPokemon)
+
+        if 'offset' in args and args['offset'] != None:
+            query = query.offset(args['offset'])
+
+        if 'limit' in args and args['limit'] != None:
+            query = query.limit(args['limit'])
+        else:
+            query = query.limit(12)
 
         return query.all()
 
@@ -64,9 +76,14 @@ class PokemonsResource(Resource):
 
         return newPokemon
     
-@namespace.route('/details/<int:codPokemon>')
+@namespace.route('/details')
 class PokemonsDetailsResource(Resource):
-    @namespace.marshal_with(pokemonDetails, as_list=True)
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('codPokemon', type=int)
+
+    @namespace.expect(parser)
+    @namespace.marshal_with(pokemonDetails)
     def get(self):
         args = self.parser.parse_args()
 
@@ -74,8 +91,8 @@ class PokemonsDetailsResource(Resource):
 
         if 'codPokemon' in args and args['codPokemon'] != None:
             query = query.filter(Pokemons.codPokemon == args['codPokemon'])
-
-        return query.all()
+        
+        return query.first()
     
 @namespace.route('/<int:codPokemon>')
 class PokemonsResource(Resource):

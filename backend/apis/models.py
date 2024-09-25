@@ -35,7 +35,7 @@ pokemonModel = api.model(name='PokemonModel', model={
     'specialDefense': fields.Integer,
     'speed': fields.Integer,
     'spriteFrontDefault': fields.String,
-    'spriteFrontDefault': fields.String
+    'spriteFrontShiny': fields.String
 })
 
 # Tablas intermedias

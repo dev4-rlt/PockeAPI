@@ -36,7 +36,6 @@ export class DetalleComponent implements OnInit, OnChanges {
 
     this.pokemonService.getPokemonDetails(params).subscribe({
       next: async res => {
-        console.log(res)
         this.details = res;
 
         let detailsSection = document.getElementById('details-section');
