@@ -17,8 +17,9 @@ export class ListadoComponent {
   @Output() codOutput = new EventEmitter<number>();
 
   basePokemons: BasePokemon[] | null = null;
-  offsetPokemons: number = 0;
-  limitPokemons: number = 25;
+  pageNumber: number = 1;
+  perPage: number = 25;
+  totalPages: number = 0;
 
   backButtonColor: string = 'text-gray-500';
   backButtonCursor: string = 'cursor-not-allowed';
@@ -52,19 +53,14 @@ export class ListadoComponent {
   }
 
   getPokemons() {
-    let params = new HttpParams().append('offset', this.offsetPokemons).append('limit', this.limitPokemons);
-
-    this.pokemonService.getBasePokemons(params).subscribe({
+    let params = new HttpParams().append('page', this.pageNumber).append('per_page', this.perPage);
+    this.pokemonService.getPagedPokemons(params).subscribe({
       next: res => {
-        if (res.length > 0) {
-          this.basePokemons = res;
-          if (res.length < this.limitPokemons) {
-            this.blockAdvanceButton();
-          }
-        } else {
-          this.offsetPokemons -= this.limitPokemons;
+        if (res.page == res.pages) {
           this.blockAdvanceButton();
         }
+        this.totalPages = res.pages;
+        this.basePokemons = res.items;
       }, error: err => {
         this.basePokemons = null;
         console.log(err);
@@ -73,20 +69,24 @@ export class ListadoComponent {
     });
   }
 
-  advance(){
-    this.offsetPokemons += this.limitPokemons;
-    if (this.offsetPokemons > 0) {
-      this.allowBackButton();
+  advance() {
+    this.pageNumber++;
+    if (this.pageNumber > this.totalPages) {
+      this.pageNumber--;
+    } else {
+      if (this.pageNumber > 1) {
+        this.allowBackButton();
+      }
+      this.getPokemons();
     }
-    this.getPokemons();
   }
   
   back(){
-    this.offsetPokemons -= this.limitPokemons;
-    if (this.offsetPokemons <= 0) {
-      this.offsetPokemons = 0;
-      this.blockBackButton;
-    } else if (this.offsetPokemons > this.limitPokemons) {
+    this.pageNumber--;
+    if (this.pageNumber <= 1) {
+      this.pageNumber = 1;
+      this.blockBackButton();
+    } else if (this.pageNumber < this.totalPages) {
       this.allowAdvanceButton();
     }
     this.getPokemons();

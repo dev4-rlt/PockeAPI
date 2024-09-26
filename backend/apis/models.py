@@ -38,6 +38,15 @@ pokemonModel = api.model(name='PokemonModel', model={
     'spriteFrontShiny': fields.String
 })
 
+# Pagination
+
+pgModel = api.model('PgModel', {
+    'page': fields.Integer,
+    'per_page': fields.Integer,
+    'pages': fields.Integer,
+    'total': fields.Integer
+})
+
 # Tablas intermedias
 
 pokemonGameModel = api.model(name='PokemonGameModel', model={

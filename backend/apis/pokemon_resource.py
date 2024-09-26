@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Pokemons
-from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel
+from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel, pgModel
 
 namespace = Namespace('Pokemons', description='Recurso para pokemons')
 
@@ -9,6 +9,10 @@ pokemonDetails = namespace.inherit('PokemonDetails', pokemonModel, {
     'pokemonGames': fields.List(fields.Nested(pokemonGameModel)),
     'pokemonHabilities': fields.List(fields.Nested(pokemonAbilityModel)),
     'pokemonMoves': fields.List(fields.Nested(pokemonMoveModel))
+})
+
+pgPokemon = namespace.inherit('PgPokemon', pgModel, {
+    'items': fields.List(fields.Nested(pokemonModel))
 })
 
 postPokemon = namespace.model(name='PostPokemon', model={
@@ -28,30 +32,34 @@ class PokemonsResource(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
-    parser.add_argument('offset', type=int)
-    parser.add_argument('limit', type=int)
+    parser.add_argument('page', type=int)
+    parser.add_argument('per_page', type=int)
 
-    @namespace.expect(parser)
-    @namespace.marshal_with(pokemonModel, as_list=True)
+    @namespace.expect(parser, validate=True)
+    @namespace.marshal_with(pgPokemon)
     def get(self):
         args = self.parser.parse_args()
-
         query = db.session.query(Pokemons)
 
         if 'name' in args and args['name'] != None:
             query = query.filter(Pokemons.name.like('%'+args['name']+'%'))
+        
+        if 'page' in args and args['page'] != None:
+            if 'per_page' in args and args['per_page'] != None:
+                return query.paginate(page=int(args['page']), per_page=int(args['per_page']))
+            
+        return query.paginate(page=1, per_page=25)
 
-        query = query.order_by(Pokemons.codPokemon)
+        # query = query.order_by(Pokemons.codPokemon)
 
-        if 'offset' in args and args['offset'] != None:
-            query = query.offset(args['offset'])
+        # if 'offset' in args and args['offset'] != None:
+        #     query = query.offset(args['offset'])
 
-        if 'limit' in args and args['limit'] != None:
-            query = query.limit(args['limit'])
-        else:
-            query = query.limit(12)
+        # if 'limit' in args and args['limit'] != None:
+        #     query = query.limit(args['limit'])
+        # else:
+        #     query = query.limit(12)
 
-        return query.all()
 
     @namespace.expect(postPokemon, validate=True)
     @namespace.marshal_with(pokemonModel)
