@@ -1,0 +1,45 @@
+<form [formGroup]="pokemonForm" (ngSubmit)="createPokemon()" class="space-y-5 w-1/2 bg-slate-400 rounded-lg p-12 flex justify-center">
+    <div class="w-full">
+        <h1 class="font-bold text-xl align-middle text-center">Inicio de Sesión</h1>
+        <br/>
+
+        <p for="name">Nombre<label class="text-red-600">*</label></p>
+        <input id="name" type="text" formControlName="name" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="height">Altura<label class="text-red-600">*</label></p>
+        <input id="height" type="number" formControlName="height" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="weight">Peso<label class="text-red-600">*</label></p>
+        <input id="weight" type="number" formControlName="weight" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="hp">Vida<label class="text-red-600">*</label></p>
+        <input id="hp" type="number" formControlName="hp" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="attack">Ataque<label class="text-red-600">*</label></p>
+        <input id="attack" type="number" formControlName="attack" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="defense">Defensa<label class="text-red-600">*</label></p>
+        <input id="defense" type="number" formControlName="defense" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="specialAttack">Ataque especial<label class="text-red-600">*</label></p>
+        <input id="specialAttack" type="number" formControlName="specialAttack" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="specialDefense">Defensa especial<label class="text-red-600">*</label></p>
+        <input id="specialDefense" type="number" formControlName="specialDefense" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="speed">Velocidad<label class="text-red-600">*</label></p>
+        <input id="speed" type="number" formControlName="speed" min="0" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="spriteFrontDefault">Enlace de imagen por defecto</p>
+        <input id="spriteFrontDefault" type="text" formControlName="spriteFrontDefault" class="rounded-sm w-full h-7">
+        <br/><br/>
+        <p for="spriteFrontShiny">Enlace de imagen resplandeciente</p>
+        <input id="spriteFrontShiny" type="text" formControlName="spriteFrontShiny" class="rounded-sm w-full h-7">
+        <p><label class="text-red-600">*</label>Campos obligatorios</p>
+
+        <br/>
+        <div class="flex justify-center">
+            <button type="submit" class="bg-green-800 rounded-lg px-4 py-2 text-white font-semibold">Guardar Pokemon</button>
+        </div>
+    </div>
+</form>

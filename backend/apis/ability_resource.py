@@ -48,7 +48,7 @@ class HabilitiesResource(Resource):
         return newAbility
 
 @namespace.route('/<int:codAbility>')
-class AbilitysResource(Resource):
+class AbilitiesResource(Resource):
 
     @namespace.marshal_with(abilityDetails)
     def get(self, codAbility: int):

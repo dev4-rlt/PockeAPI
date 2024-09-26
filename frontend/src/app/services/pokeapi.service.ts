@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PagedPokemon } from '../interfaces/paged-pokemon';
 import { Observable } from 'rxjs';
 import { PokemonDetail } from '../interfaces/pokemon-details';
+import { PostPokemon } from '../interfaces/base-pokemon';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class PokeapiService {
 
   getPokemonDetails(params: HttpParams): Observable<PokemonDetail> {
     return this.http.get<PokemonDetail>(`${this.API}/pokemons/details`, { params: params});
+  }
+
+  postPokemon(newPokemon: PostPokemon): Observable<PokemonDetail> {
+    return this.http.post<PokemonDetail>(`${this.API}/pokemons`, newPokemon)
   }
 
 }

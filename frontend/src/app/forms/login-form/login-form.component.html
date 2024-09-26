@@ -1,0 +1,20 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5 w-1/3 bg-slate-400 rounded-lg p-12 flex justify-center">
+    <div class="w-full">
+        <h1 class="font-bold text-xl align-middle text-center">Inicio de Sesión</h1>
+        <br/>
+        <div>
+            <p for="username">Usuario</p>
+            <input id="username" type="text" formControlName="username" class="rounded-sm w-full h-7">
+        </div>
+        <br/>
+        <div>
+            <p for="password">Contraseña</p>
+            <input id="password" type="password" formControlName="password" class="rounded-sm w-full h-7">
+        </div>
+        <br/>
+        <div class="flex justify-center">
+            <button type="submit" class="bg-green-800 rounded-lg px-4 py-2 text-white font-semibold">Iniciar Sesión</button>
+        </div>
+    </div>
+</form>
+<router-outlet></router-outlet>

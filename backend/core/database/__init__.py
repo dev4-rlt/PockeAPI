@@ -15,3 +15,5 @@ from .pokemon_games import PokemonGames
 from .pokemon_habilities import PokemonHabilities
 from .pokemon_locations import PokemonLocations
 from .pokemon_moves import PokemonMoves
+
+from .user import Users

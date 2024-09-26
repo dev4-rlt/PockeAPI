@@ -38,6 +38,13 @@ pokemonModel = api.model(name='PokemonModel', model={
     'spriteFrontShiny': fields.String
 })
 
+userModel = api.model('UserModel', {
+    'codUser': fields.Integer,
+    'name': fields.String,
+    'username': fields.String,
+    'address': fields.String
+})
+
 # Pagination
 
 pgModel = api.model('PgModel', {

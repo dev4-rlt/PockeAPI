@@ -1,9 +1,14 @@
-<div class="h-screen flex flex-col items-center py-60">
+<div class="h-screen flex flex-col items-center py-60 space-y-32">
   <h1 class="font-sans text-6xl font-bold tracking-wide">
-    Bienvenido a Poke
+    Bienvenido a PokeAPI
   </h1>
-  <a routerLink="mostrador" class="mt-20 rounded-xl bg-slate-600 px-10 py-4 font-semibold text-white  hover:bg-slate-500 focus-visible:outline" >
-    Ir al listado de Pokemons
-  </a>
+  <div class="flex flex-row space-x-10 w-full px-20 justify-center">
+    <a routerLink="mostrador" class="rounded-xl w-1/4	text-center bg-slate-600 px-10 py-4 font-semibold text-white  hover:bg-slate-500 focus-visible:outline" >
+      Ir al listado de Pokemons
+    </a>
+    <a routerLink="login" class="rounded-xl w-1/4 text-center bg-slate-600 px-10 py-4 font-semibold text-white  hover:bg-slate-500 focus-visible:outline" >
+      Ir a formularios
+    </a>
+  </div>
 </div>
 <router-outlet></router-outlet>
