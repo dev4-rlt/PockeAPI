@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-7xl px-8">
       <p class="font-bold text-gray-900 sm:text-2xl">{{title}}</p>
       <div class="flex flex-row justify-center">
         <dl class="flex mt-5 space-x-4 p-2 overflow-x-auto text-nowrap">

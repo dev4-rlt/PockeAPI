@@ -44,13 +44,14 @@ class PokemonsResource(Resource):
         if 'name' in args and args['name'] != None:
             query = query.filter(Pokemons.name.like('%'+args['name']+'%'))
         
+        query = query.order_by(Pokemons.codPokemon)
+        
         if 'page' in args and args['page'] != None:
             if 'per_page' in args and args['per_page'] != None:
                 return query.paginate(page=int(args['page']), per_page=int(args['per_page']))
-            
-        return query.paginate(page=1, per_page=25)
+        
+        return query.paginate(page=1, per_page=25)    
 
-        # query = query.order_by(Pokemons.codPokemon)
 
         # if 'offset' in args and args['offset'] != None:
         #     query = query.offset(args['offset'])
