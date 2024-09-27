@@ -6,10 +6,19 @@ locationModel = api.model(name='LocationModel', model={
     'name': fields.String,
 })
 
+postLocation = api.model(name='PostLocation', model={
+    'name': fields.String
+})
+
 abilityModel = api.model(name='AbilityModel', model={
     'codHability': fields.Integer,
     'name': fields.String,
     'description': fields.String
+})
+
+postAbility = api.model(name='PostAbility', model={
+    'name': fields.String,
+    'description': fields.String,
 })
 
 gameModel = api.model(name='GameModel', model={
@@ -17,10 +26,19 @@ gameModel = api.model(name='GameModel', model={
     'name': fields.String,
 })
 
+postGame = api.model(name='PostGame', model={
+    'name': fields.String,
+})
+
 moveModel = api.model(name='MoveModel', model={
     'codMove': fields.Integer,
     'name': fields.String,
     'description': fields.String,
+})
+
+postMove = api.model(name='PostMove', model={
+    'name': fields.String,
+    'description': fields.String
 })
 
 pokemonModel = api.model(name='PokemonModel', model={

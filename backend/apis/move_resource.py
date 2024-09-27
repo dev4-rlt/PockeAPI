@@ -1,16 +1,11 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Moves
-from apis.models import moveModel, pokemonMoveModel
+from apis.models import moveModel, pokemonMoveModel, postMove
 
 namespace = Namespace('Moves', description='Recurso para movimientos')
 
 moveDetails = namespace.inherit('MoveDetails', moveModel, {
     'pokemonsMove': fields.List(fields.Nested(pokemonMoveModel))
-})
-
-postMove = namespace.model(name='PostMove', model={
-    'name': fields.String,
-    'description': fields.String
 })
 
 @namespace.route('')

@@ -1,36 +1,32 @@
-<section class="text-center">
+<section>
   @if (basePokemons != null) {
-      <div class="bg-gray-50 rounded-md m-20">
-          <div class="mx-20 max-w-full">
-            <div class="mx-auto max-w-2xl py-16  lg:max-w-none">
-              <div class="text-4xl font-bold text-gray-900">Pokemons</div>
-              <br/>
-              <div class="flex flex-row">
-                <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-3x mr-10 my-auto" [ngClass]="[backButtonColor, backButtonCursor]"></i>
-                <div class="mt-6 space-y-12 lg:grid lg:grid-cols-5 lg:gap-x-6 lg:space-y-0 w-full">
-                    @for (pokemon of basePokemons; track pokemon.codPokemon) {
-                      <div class="group relative">
-                        <dt class="text-base font-semibold leading-7 text-gray-900">
-                          <div class="absolute left-2 top-1 flex h-7 w-7 items-center justify-center rounded-lg">
-                            <i class="fa-solid fa-eye fa-xl"></i>                           
-                          </div>
-                          <div (click)="showPokemon(pokemon.codPokemon)" class="capitalize cursor-pointer mb-6 bg-indigo-500 text-base font-semibold text-gray-900 relative w-full overflow-hidden rounded-lg sm:aspect-w-2 group-hover:opacity-75 sm:h-20">
-                            <br/>
-                            {{pokemon.name}}
-                          </div>
-                        </dt>
-                      </div>
-                    }
-                </div>
-                <i id="advanceButton" (click)="advance()" class="fa-solid fa-chevron-right fa-3x ml-10 my-auto" [ngClass]="[advanceButtonColor, advanceButtonCursor]"></i>
-              </div>
-            </div>
+  <div class="bg-gray-50 rounded-md m-10 sm:m-20 p-10 space-y-8">
+    <h2 class="text-center">Pokemons</h2>
+    <div class="flex flex-row">
+      <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-2x my-auto"
+        [ngClass]="[backButtonColor, backButtonCursor]"></i>
+
+      <div class="mx-8 w-full gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        @for (pokemon of basePokemons; track pokemon.codPokemon) {
+          <div (click)="showPokemon(pokemon.codPokemon)"
+            class="rounded-lg font-semibold text-white relative py-4 px-5 bg-blue-900 hover:bg-blue-700 text-center transition-all hover:scale-105" 
+            [ngClass]="{'scale-105': selectedPokemon == pokemon.codPokemon}">
+
+            @if (selectedPokemon == pokemon.codPokemon) {
+              <i class="fa-solid fa-eye fa-l absolute left-2 top-3"></i>
+            }
+            {{pokemon.name}}
           </div>
-        </div>
-  } @else {
-      <div class="text-2xl font-bold mt-20">
-          No existen pokemons para mostrar
+        }
       </div>
+
+      <i id="advanceButton" (click)="advance()" class="fa-solid fa-chevron-right fa-2x my-auto"
+        [ngClass]="[advanceButtonColor, advanceButtonCursor]"></i>
+    </div>
+  </div>
+  } @else {
+  <h2 class="text-center mt-20">
+    No existen pokemons para mostrar
+  </h2>
   }
 </section>
-<router-outlet></router-outlet>

@@ -1,4 +1,7 @@
-<h1 class="text-center text-2xl font-bold mt-16">Bienvenido {{this.name}}</h1>
-<h1 class="px-16 text-xl">Vives en {{this.address}}</h1>
-
-<app-pokemon-form class="w-full h-auto flex justify-center mt-20"></app-pokemon-form>
+<div class="p-10 space-y-6 w-screen h-screen">
+    <h1 class="text-center">Bienvenido {{this.name}}</h1>
+    <h4>Vives en {{this.address}}</h4>
+    <div class="w-full flex justify-center pb-10">
+        <app-pokemon-form class="sm:w-3/4 md:w-2/3 lg:w-2/3 xl:w-3/5 2xl:w-1/2"></app-pokemon-form>
+    </div>
+</div>

@@ -1,19 +1,19 @@
-<div class="bg-gray-50 sm:py-12 rounded-md text-center my-20 mx-20 px-6 lg:px-8">
+<div class="bg-gray-50 sm:py-12 rounded-md m-10 sm:m-20 p-10 space-y-10">
   @if (this.details) {
 
     <!-- Características y estadísticas -->
     <div>
-      <div class="flex justify-evenly items-center max-w-7xl m-auto">
+      <div class="flex items-center justify-evenly">
         <img src={{this.details.spriteFrontDefault}} alt={{this.details.name}} width="250px" class="object-fill">
-        <p class="uppercase mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 class="uppercase text-gray-900">
           {{this.details.name}}
-        </p>
+        </h2>
         <img src={{this.details.spriteFrontShiny}} alt={{this.details.name}} width="250px" class="object-fill">
       </div>
 
-      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 px-4 sm:px-6 sm:py-5 lg:max-w-7xl lg:grid-cols-2 lg:px-8 ">
-        <div class="rounded-lg px-4 bg-blue-300 border-gray-400 border-2">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl mt-5">Características</h2>
+      <div class="mx-auto grid gap-8 lg:grid-cols-2">
+        <div class="rounded-lg p-4 bg-blue-300 border-gray-400 border-2">
+          <h3 class="text-gray-900 sm:text-2xl mt-5">Características</h3>
           <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
             <app-stat-pokemon name="ID" [value]="this.details.codPokemon"/>
             <app-stat-pokemon name="Altura" [value]="this.details.height"/>
@@ -21,24 +21,20 @@
             <app-stat-pokemon name="HP" [value]="this.details.hp" />
           </dl>
         </div>
-        <div class="rounded-lg px-4 bg-teal-300 border-gray-400 border-2">
-          <br />
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-2xl">Estadísticas</h2>
+        <div class="rounded-lg p-4 bg-teal-300 border-gray-400 border-2">
+          <h2 class="text-gray-900 sm:text-2xl mt-5">Estadísticas</h2>
           <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
             <app-stat-pokemon name="Attack" [value]="this.details.attack" />
             <app-stat-pokemon name="Defense" [value]="this.details.defense" />
             <app-stat-pokemon name="Special Attack" [value]="this.details.specialAttack" />
             <app-stat-pokemon name="Special Defense" [value]="this.details.specialDefense" />
             <app-stat-pokemon name="Speed" [value]="this.details.speed" />
-            <br />
           </dl>
         </div>
       </div>
     </div>
     
-    <br/>
     <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
-    <br/>
 
     <!-- Habilidades -->
     <app-seccion-pokemon title="Habilidades" >
@@ -57,9 +53,7 @@
       }
       </app-seccion-pokemon>
     
-    <br/>
     <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
-    <br/>
 
     <!-- Movimientos -->
     <app-seccion-pokemon title="Movimientos" >
@@ -77,9 +71,7 @@
       }
     </app-seccion-pokemon>
 
-    <br/>
     <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
-    <br/>
 
     <!-- Lugares -->
     <app-seccion-pokemon title="¿Dónde encontrarlo?">
@@ -97,9 +89,7 @@
       }
     </app-seccion-pokemon>
     
-    <br/>
     <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
-    <br/>
 
     <!-- Juegos -->
     <app-seccion-pokemon title="Juegos en los que aparece" >

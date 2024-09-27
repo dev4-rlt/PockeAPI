@@ -1,6 +1,8 @@
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Pokemons
-from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel, pgModel
+from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel, pgModel, postLocation, postGame, postAbility, postMove
+from core.database.ability import Habilities
+from core.database.pokemon_habilities import PokemonHabilities
 
 namespace = Namespace('Pokemons', description='Recurso para pokemons')
 
@@ -25,6 +27,24 @@ postPokemon = namespace.model(name='PostPokemon', model={
     'specialAttack': fields.Integer,
     'specialDefense': fields.Integer,
     'speed': fields.Integer, 
+})
+
+postCompletePokemon = namespace.model(name='PostCompletePokemon', model={
+    'name': fields.String,
+    'height': fields.Integer,
+    'weight': fields.Integer,
+    'hp': fields.Integer,
+    'attack': fields.Integer,
+    'defense': fields.Integer,
+    'specialAttack': fields.Integer,
+    'specialDefense': fields.Integer,
+    'speed': fields.Integer,
+    'spriteFrontDefault': fields.String,
+    'spriteFrontShiny': fields.String,
+    'pokemonLocations': fields.List(fields.Nested(postLocation)),
+    'pokemonGames': fields.List(fields.Nested(postGame)),
+    'pokemonHabilities': fields.List(fields.Nested(postAbility)),
+    'pokemonMoves': fields.List(fields.Nested(postMove))
 })
 
 @namespace.route('')
@@ -102,6 +122,55 @@ class PokemonsDetailsResource(Resource):
             query = query.filter(Pokemons.codPokemon == args['codPokemon'])
         
         return query.first()
+    
+     
+    @namespace.expect(postPokemon, validate=True)
+    @namespace.marshal_with(pokemonModel)
+    def post(self):
+        body = namespace.payload
+
+        newPokemon = Pokemons()
+        newPokemon.name = body['name']
+        newPokemon.height = body['height']
+        newPokemon.weight = body['weight']
+        newPokemon.hp = body['hp']
+        newPokemon.attack = body['attack']
+        newPokemon.defense = body['defense']
+        newPokemon.specialAttack = body['specialAttack']
+        newPokemon.specialDefense = body['specialDefense']
+        newPokemon.speed = body['speed']
+        newPokemon.spriteFrontDefault = body['spriteFrontDefault']
+        newPokemon.spriteFrontShiny = body['spriteFrontShiny']
+        
+        for ability in  body['pokemonHabilities']:
+            savedAbility: Habilities = db.session.query(Habilities).filter(Habilities.name == ability.name.capitalize()).first()
+                
+            pokemonAbility = PokemonHabilities()
+            if savedAbility is None:
+                newAbility = Habilities()
+                newAbility.name = ability.name.capitalize()
+
+                newAbility.description = ability.description
+                db.session.add(newAbility)
+                pokemonAbility.ability = newAbility
+            else:
+                pokemonAbility.abilityCod = savedAbility.codHability
+            
+            newPokemon.pokemonHabilities.append(pokemonAbility)
+        
+        for location in  body['pokemonLocations']:
+            pass
+        
+        for move in  body['pokemonMoves']:
+            pass
+        
+        for game in  body['pokemonGames']:
+            pass
+
+        db.session.add(newPokemon)
+        db.session.commit()
+
+        return newPokemon
     
 @namespace.route('/<int:codPokemon>')
 class PokemonsResource(Resource):

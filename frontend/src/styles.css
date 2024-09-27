@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: rgb(229, 229, 238);
+@layer base {
+    h1 {
+        @apply font-bold text-4xl;
+    }
+
+    h2 {
+        @apply font-bold text-3xl;
+    }
+
+    h3 {
+        @apply font-bold text-2xl;
+    }
+
+    h4 {
+        @apply font-bold text-xl;
+    }
+
+    h5 {
+        @apply font-bold text-lg;
+    }
+
+    body {
+        @apply bg-red-500;
+    }
+}
+
+@layer components {
+    .form-control {
+        @apply block w-full rounded-md py-1 px-2 focus:ring-yellow-500 focus:ring-2 focus:border-yellow-700 border-2 border-gray-600;
+    }
+
+    .btn {
+        @apply rounded-lg px-4 py-2 font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-600;
+    }
+
+    .btn-p {
+        @apply bg-blue-800 hover:bg-blue-700 text-white;
+    }
+    
+    .btn-s {
+        @apply bg-green-800 hover:bg-green-700 text-white;
+    }
+
+    .btn-d {
+        @apply bg-red-800 hover:bg-red-700 text-white;
+    }
+
+    .ng-invalid {
+        @apply border-red-600;
+    }
 }

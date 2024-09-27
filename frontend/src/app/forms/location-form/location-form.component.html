@@ -1,0 +1,17 @@
+<form [formGroup]="locationForm" (submit)="createLocation()" class="space-y-5 w-full px-10 bg-slate-400 rounded-lg p-12 flex justify-center">
+    <div class="w-full">
+        <p>Nombre de la locación<label class="text-red-600">*</label>
+        </p>
+        <input for="name" type="text" formControlName="name" class="rounded-sm w-full h-7">
+        <br/><br/>
+
+        <p><label class="text-red-600">*</label>Campos obligatorios</p>
+
+        <br/>
+        <div class="flex justify-center">
+            <button type="submit" class="bg-blue-900 hover:bg-blue-800 rounded-lg px-4 py-2 text-white font-semibold" [disabled]="this.locationForm.invalid">
+                Agregar Habilidad
+            </button>
+        </div>
+    </div>
+</form>

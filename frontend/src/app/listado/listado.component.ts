@@ -20,6 +20,7 @@ export class ListadoComponent {
   pageNumber: number = 1;
   perPage: number = 25;
   totalPages: number = 0;
+  selectedPokemon: number | null = null;
 
   backButtonColor: string = 'text-gray-500';
   backButtonCursor: string = 'cursor-not-allowed';
@@ -93,6 +94,7 @@ export class ListadoComponent {
   }
   
   showPokemon(codPokemon: number) {
+    this.selectedPokemon = codPokemon;
     this.codOutput.emit(codPokemon);
   }
 }
