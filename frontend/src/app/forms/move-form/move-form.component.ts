@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { PostMove } from '../../interfaces/post-pokemon-details';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MoveForm, PostMove } from '../../interfaces/post-pokemon-details';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-move-form',
@@ -10,17 +10,17 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class MoveFormComponent {
 
-  @Output() move = new EventEmitter<PostMove>();
+  @Input({ required: true }) moveArray!: FormArray<FormGroup<MoveForm>>;
+  @Output() close = new EventEmitter();
 
   moveForm: FormGroup = new FormGroup({
-    name: new FormControl<string>('', Validators.required),
-    description: new FormControl<string>(''),
+    name: new FormControl<string | null>(null, Validators.required),
+    description: new FormControl<string | null>(null),
   });
 
   createMove() {
-    this.move.emit(this.moveForm.value);
-    this.moveForm.reset();
-    alert('Movimiento añadido con éxito')
+    this.moveArray.push(this.moveForm);
+    this.close.emit()
   }
 
 }

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { PostLocation } from '../../interfaces/post-pokemon-details';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { LocationForm, PostLocation } from '../../interfaces/post-pokemon-details';
 
 @Component({
   selector: 'app-location-form',
@@ -10,15 +10,15 @@ import { PostLocation } from '../../interfaces/post-pokemon-details';
 })
 export class LocationFormComponent {
   
-  @Output() location = new EventEmitter<PostLocation>();
+  @Input({ required: true }) locationArray!: FormArray<FormGroup<LocationForm>>;
+  @Output() close = new EventEmitter();
 
-  locationForm: FormGroup = new FormGroup({
-    name: new FormControl<string>('', Validators.required)
+  locationForm: FormGroup = new FormGroup<LocationForm>({
+    name: new FormControl<string | null>(null, Validators.required)
   });
 
   createLocation() {
-    this.location.emit(this.locationForm.value);
-    this.locationForm.reset();
-    alert('Locación añadida con éxito')
+    this.locationArray.push(this.locationForm)
+    this.close.emit();
   }
 }

@@ -2,7 +2,13 @@ from flask_restx import Namespace, Resource, fields, reqparse, abort
 from core.database import db, Pokemons
 from apis.models import pokemonModel, pokemonLocationModel, pokemonGameModel, pokemonAbilityModel, pokemonMoveModel, pgModel, postLocation, postGame, postAbility, postMove
 from core.database.ability import Habilities
+from core.database.game import Games
+from core.database.location import Locations
+from core.database.move import Moves
+from core.database.pokemon_games import PokemonGames
 from core.database.pokemon_habilities import PokemonHabilities
+from core.database.pokemon_locations import PokemonLocations
+from core.database.pokemon_moves import PokemonMoves
 
 namespace = Namespace('Pokemons', description='Recurso para pokemons')
 
@@ -124,13 +130,14 @@ class PokemonsDetailsResource(Resource):
         return query.first()
     
      
-    @namespace.expect(postPokemon, validate=True)
-    @namespace.marshal_with(pokemonModel)
+    @namespace.expect(postCompletePokemon, validate=True)
+    @namespace.marshal_with(pokemonDetails)
     def post(self):
+
         body = namespace.payload
 
         newPokemon = Pokemons()
-        newPokemon.name = body['name']
+        newPokemon.name = body['name'].capitalize()
         newPokemon.height = body['height']
         newPokemon.weight = body['weight']
         newPokemon.hp = body['hp']
@@ -142,15 +149,15 @@ class PokemonsDetailsResource(Resource):
         newPokemon.spriteFrontDefault = body['spriteFrontDefault']
         newPokemon.spriteFrontShiny = body['spriteFrontShiny']
         
-        for ability in  body['pokemonHabilities']:
-            savedAbility: Habilities = db.session.query(Habilities).filter(Habilities.name == ability.name.capitalize()).first()
+        for ability in body['pokemonHabilities']:
+            savedAbility: Habilities = db.session.query(Habilities).filter(Habilities.name == ability['name'].capitalize()).first()
                 
             pokemonAbility = PokemonHabilities()
             if savedAbility is None:
                 newAbility = Habilities()
-                newAbility.name = ability.name.capitalize()
+                newAbility.name = ability['name'].capitalize()
 
-                newAbility.description = ability.description
+                newAbility.description = ability['description']
                 db.session.add(newAbility)
                 pokemonAbility.ability = newAbility
             else:
@@ -158,14 +165,51 @@ class PokemonsDetailsResource(Resource):
             
             newPokemon.pokemonHabilities.append(pokemonAbility)
         
-        for location in  body['pokemonLocations']:
-            pass
+        for location in body['pokemonLocations']:
+            savedLocation: Locations = db.session.query(Locations).filter(Locations.name == location['name'].capitalize()).first()
+
+            pokemonLocation = PokemonLocations()
+            if savedLocation is None:
+                newLocation = Locations()
+                newLocation.name = location['name']
+
+                db.session.add(newLocation)
+                pokemonLocation.location = newLocation
+            else:
+                pokemonLocation.locationCod = savedLocation.codLocation
+            
+            newPokemon.pokemonLocations.append(pokemonLocation)
         
         for move in  body['pokemonMoves']:
-            pass
+            savedMove: Moves = db.session.query(Moves).filter(Moves.name == move['name'].capitalize()).first()
+                
+            pokemonMove = PokemonMoves()
+            if savedMove is None:
+                newMove = Moves()
+                newMove.name = move['name'].capitalize()
+
+                newMove.description = move['description']
+                db.session.add(newMove)
+                pokemonMove.move = newMove
+            else:
+                pokemonMove.moveCod = savedMove.codMove
+            
+            newPokemon.pokemonMoves.append(pokemonMove)
         
         for game in  body['pokemonGames']:
-            pass
+            savedGame: Games = db.session.query(Games).filter(Games.name == game['name'].capitalize()).first()
+
+            pokemonGame = PokemonGames()
+            if savedGame is None:
+                newGame = Games()
+                newGame.name = game['name'].capitalize()
+
+                db.session.add(newGame)
+                pokemonGame.game = newGame
+            else:
+                pokemonGame.gameCod = savedGame.codGame
+            
+            newPokemon.pokemonGames.append(pokemonGame)
 
         db.session.add(newPokemon)
         db.session.commit()

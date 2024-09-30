@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PostAbility } from '../../interfaces/post-pokemon-details';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbilityForm, PostAbility } from '../../interfaces/post-pokemon-details';
 
 @Component({
   selector: 'app-ability-form',
@@ -10,17 +10,18 @@ import { PostAbility } from '../../interfaces/post-pokemon-details';
 })
 export class AbilityFormComponent {
 
-  @Output() ability = new EventEmitter<PostAbility>();
+  @Input({ required: true }) abilityArray!: FormArray<FormGroup<AbilityForm>>;
 
-  abilityForm: FormGroup = new FormGroup({
-    name: new FormControl<string>('', Validators.required),
-    description: new FormControl<string>(''),
+  @Output() close = new EventEmitter();
+
+  abilityForm: FormGroup = new FormGroup<AbilityForm>({
+    name: new FormControl<string | null>(null, Validators.required),
+    description: new FormControl<string | null>(null),
   });
 
   createAbility() {
-    this.ability.emit(this.abilityForm.value);
-    this.abilityForm.reset();
-    alert('Habilidad añadida con éxito')
+    this.abilityArray.push(this.abilityForm);
+    this.close.emit();
   }
 
 }

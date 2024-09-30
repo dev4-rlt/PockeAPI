@@ -1,22 +1,19 @@
-<form [formGroup]="moveForm" (submit)="createMove()" class="space-y-5 w-full px-10 bg-slate-400 rounded-lg p-12 flex justify-center">
-    <div class="w-full">
-        <p>Nombre del movimiento<label class="text-red-600">*</label>
-        </p>
-        <input for="name" type="text" formControlName="name" class="rounded-sm w-full h-7">
-        <br/><br/>
+<form [formGroup]="moveForm" (submit)="createMove()" class="space-y-5 w-full sm:gap-6 px-6 py-4 sm:px-10 sm:py-6 bg-slate-400 rounded-lg justify-center">
+    <div>
+        <label for="name">Nombre del movimiento<span class="text-red-600">*</span></label>
+        <input for="name" type="text" formControlName="name" class="form-control">
+    </div>
 
-        <p>Descripción</p>
-        <input for="description" type="text" formControlName="description" class="rounded-sm w-full h-7">
-        <br/><br/>
+    <div>
+        <label for="description">Descripción</label>
+        <input for="description" type="text" formControlName="description" class="form-control">
+        <label><span class="text-red-600">*</span>Campos obligatorios</label>    
+    </div>
 
-        <p><label class="text-red-600">*</label>Campos obligatorios</p>
-
-        <br/>
-        <div class="flex justify-center">
-            <button type="submit" class="bg-blue-900 hover:bg-blue-800 rounded-lg px-4 py-2 text-white font-semibold" [disabled]="this.moveForm.invalid">
-                Agregar Movimiento
-            </button>
-        </div>
+    <div class="flex justify-center">
+        <button type="submit" class="btn btn-p" [disabled]="this.moveForm.invalid">
+            Agregar Movimiento
+        </button>
     </div>
 </form>
 

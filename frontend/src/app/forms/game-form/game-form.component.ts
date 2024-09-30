@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { PostGame } from '../../interfaces/post-pokemon-details';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GameForm } from '../../interfaces/post-pokemon-details';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-game-form',
@@ -10,16 +10,16 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 })
 export class GameFormComponent {
 
-  @Output() game = new EventEmitter<PostGame>();
+  @Input({ required: true }) gameArray!: FormArray<FormGroup<GameForm>>;
+  @Output() close = new EventEmitter();
 
   gameForm: FormGroup = new FormGroup({
     name: new FormControl<string>('', Validators.required)
   });
 
   createGame() {
-    this.game.emit(this.gameForm.value);
-    this.gameForm.reset();
-    alert('Juego añadido con éxito')
+    this.gameArray.push(this.gameForm);
+    this.close.emit();
   }
 
 }

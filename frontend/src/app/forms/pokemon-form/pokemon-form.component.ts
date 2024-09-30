@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PostPokemon } from '../../interfaces/base-pokemon';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PokeapiService } from '../../services/pokeapi.service';
 import { NgIf, NgClass } from '@angular/common';
-import { FieldPokemon } from '../../interfaces/field-pokemon';
 import { AbilityFormComponent } from "../ability-form/ability-form.component";
-import { PostAbility, PostGame, PostLocation, PostMove } from '../../interfaces/post-pokemon-details';
+import { AbilityForm, GameForm, LocationForm, MoveForm, PostAbility, postCompletePokemon, PostGame, PostLocation, PostMove } from '../../interfaces/post-pokemon-details';
 import { MoveFormComponent } from '../move-form/move-form.component';
 import { LocationFormComponent } from '../location-form/location-form.component';
 import { GameFormComponent } from '../game-form/game-form.component';
@@ -18,21 +16,8 @@ import { GameFormComponent } from '../game-form/game-form.component';
 })
 export class PokemonFormComponent {
 
-  fields: FieldPokemon[] = [
-    { id: 'name', name: 'Nombre', required: true },
-    { id: 'height', name: 'Altura', required: true },
-    { id: 'hp', name: 'Puntos de vida', required: true },
-    { id: 'attack', name: 'Ataque', required: true },
-    { id: 'defense', name: 'Defensa', required: true },
-    { id: 'specialAttack', name: 'Ataque especial', required: true },
-    { id: 'specialDefense', name: 'Defensa especial', required: true },
-    { id: 'speed', name: 'Velocidad', required: true },
-    { id: 'spriteFrontDefault', name: 'Enlace de imagen default', required: false },
-    { id: 'spriteFrontShiny', name: 'Enlace de imagen resplandeciente', required: false }
-  ];
-
-  pokemonForm: FormGroup = new FormGroup({
-    name: new FormControl<string>('', [Validators.required, Validators.maxLength(10)]),
+  pokemonForm = new FormGroup({
+    name: new FormControl<string>('', [Validators.required, Validators.maxLength(30)]),
     height: new FormControl<number>(0, Validators.required),
     weight: new FormControl<number>(0, Validators.required),
     hp: new FormControl<number>(0, Validators.required),
@@ -43,16 +28,16 @@ export class PokemonFormComponent {
     speed: new FormControl<number>(0, Validators.required),
     spriteFrontDefault: new FormControl<string>(''),
     spriteFrontShiny: new FormControl<string>(''),
-    pokemonHabilitities: new FormControl<PostAbility[]>([]),
-    pokemonMoves: new FormControl<PostAbility[]>([]),
-    pokemonLocations: new FormControl<PostAbility[]>([]),
-    pokemonGames: new FormControl<PostAbility[]>([]),
+    pokemonHabilities: new FormArray<FormGroup<AbilityForm>>([]),
+    pokemonMoves: new FormArray<FormGroup<MoveForm>>([]),
+    pokemonLocations: new FormArray<FormGroup<LocationForm>>([]),
+    pokemonGames: new FormArray<FormGroup<GameForm>>([]),
   });
 
-  abilityModalDisplay = 'hidden';
-  moveModalDisplay = 'hidden';
-  locationModalDisplay = 'hidden';
-  gameModalDisplay = 'hidden';
+  showAbilityModal: boolean = false;
+  showMoveModal: boolean = false;
+  showLocationModal: boolean = false;
+  showGameModal: boolean = false;
 
   constructor(
     private pokemonService: PokeapiService
@@ -64,72 +49,19 @@ export class PokemonFormComponent {
   // })
 
   createPokemon() {
-    this.pokemonService.postPokemon(this.pokemonForm.value).subscribe({
+    this.pokemonService.postCompletePokemon(this.pokemonForm.value as any).subscribe({
       next: res => {
         this.pokemonForm.reset();
         alert('El pokemon ' + res.name + ' ha sido guardado con éxito');
       }, error: err => {
         console.log(err);
-        alert("Credenciales incorrectas");
+        alert("Ha ocurrido un error inesperado durante la creación del pokemon, vuelva a intentarlo");
       }
     });
   }
 
-  hideAbilityForm() {
-    this.abilityModalDisplay = 'hidden';
-  }
-
-  showAbilityForm() {
-    this.abilityModalDisplay = 'flex';
-  }
-
-  hideMoveForm() {
-    this.moveModalDisplay = 'hidden';
-  }
-
-  showMoveForm() {
-    this.moveModalDisplay = 'flex';
-  }
-
-  hideLocationForm() {
-    this.locationModalDisplay = 'hidden';
-  }
-
-  showLocationForm() {
-    this.locationModalDisplay = 'flex';
-  }
-
-  hideGameForm() {
-    this.gameModalDisplay = 'hidden';
-  }
-
-  showGameForm() {
-    this.gameModalDisplay = 'flex';
-  }
-
-  saveAbility(ability: PostAbility) {
-    this.pokemonForm.value.pokemonHabilitities.push(ability);
-    this.hideAbilityForm();
-  }
-
-  saveMove(move: PostMove) {
-    this.pokemonForm.value.pokemonMoves.push(move)
-    this.hideMoveForm();
-  }
-
-  saveLocation(location: PostLocation) {
-    this.pokemonForm.value.pokemonLocations.push(location)
-    this.hideLocationForm();
-  }
-
-  saveGame(game: PostGame) {
-    this.pokemonForm.value.pokemonGames.push(game)
-    this.hideGameForm();
-  }
-
   logForm(): void {
     console.log(this.pokemonForm);
-    
   }
 
 }

@@ -1,186 +1,207 @@
 <form [formGroup]="pokemonForm" (ngSubmit)="createPokemon()" class="w-full bg-slate-400 rounded-lg p-12 space-y-10">
 
     <h3 class="text-center">Creación de Pokemon</h3>
-
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        @for(field of this.fields; track field.id) {
         <div>
-            <label [for]="field.id">
-                {{field.name}}
-                @if (field.required) {
-                <span class="text-red-600">*</span>
-                }
-            </label>
-            <input class="form-control" [id]="field.id" type="text" [formControlName]="field.id">
+            <label for="name">Nombre<span class="text-red-600">*</span></label>
+            <input for="name" type="text" formControlName="name" class="form-control">
         </div>
-        }
-        <label><span class="text-red-600">*</span>Campos obligatorios</label>
+        <div>
+            <label for="height">Altura<span class="text-red-600">*</span></label>
+            <input for="height" type="number" formControlName="height" class="form-control">
+        </div>
+        <div>
+            <label for="weight">Peso<span class="text-red-600">*</span></label>
+            <input for="weight" type="number" formControlName="weight" class="form-control">
+        </div>
+        <div>
+            <label for="hp">Puntos de vida<span class="text-red-600">*</span></label>
+            <input for="hp" type="number" formControlName="hp" class="form-control">
+        </div>
+        <div>
+            <label for="attack">Ataque<span class="text-red-600">*</span></label>
+            <input for="attack" type="number" formControlName="attack" class="form-control">
+        </div>
+        <div>
+            <label for="defense">Defensa<span class="text-red-600">*</span></label>
+            <input for="defense" type="number" formControlName="defense" class="form-control">
+        </div>
+        <div>
+            <label for="specialAttack">Ataque especial<span class="text-red-600">*</span></label>
+            <input for="specialAttack" type="number" formControlName="specialAttack" class="form-control">
+        </div>
+        <div>
+            <label for="specialDefense">Defensa especial<span class="text-red-600">*</span></label>
+            <input for="specialDefense" type="number" formControlName="specialDefense" class="form-control">
+        </div>
+        <div>
+            <label for="speed">Velocidad<span class="text-red-600">*</span></label>
+            <input for="speed" type="number" formControlName="speed" class="form-control">
+        </div>
+        <div>
+            <label for="spriteFrontDefault">Enlace de imagen default</label>
+            <input for="spriteFrontDefault" type="text" formControlName="spriteFrontDefault" class="form-control">
+        </div>
+        <div>
+            <label for="spriteFrontShiny">Enlace de imagen resplandeciente</label>
+            <input for="spriteFrontShiny" type="text" formControlName="spriteFrontShiny" class="form-control">
+        </div>
     </div>
-
-    <!-- <div>
-        <label>
-            Prueba
-            <span class="text-red-600">*</span>
-        </label>
-        <input class="form-control bg-slate-400" type="text">
-    </div> -->
+    <label><span class="text-red-600">*</span>Campos obligatorios</label>
 
     <div class="w-full space-y-3 sm:space-y-5">
-
         <div class="grid sm:grid-cols-4">
             <p>Agregar habilidades</p>
-            <button type="button" (click)="showAbilityForm()" class="btn btn-s w-11">
+            <button type="button" (click)="showAbilityModal = true" class="btn btn-s w-11">
                 <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
             </button>
             <div class="col-span-2 flex flex-row">
-                <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
-                    @for(ability of this.pokemonForm.value.pokemonHabilitities; track ability) {
-                    <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{ability.name}}</p>
-                    }
-                </div>
+                @if (this.pokemonForm.value.pokemonHabilities?.length) {
+                    <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
+                        @for(ability of this.pokemonForm.value.pokemonHabilities; track ability) {
+                            <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{ability.name}}</p>
+                        }
+                    </div>
+                }
             </div>
         </div>
 
-        <div class="grid grid-cols-4">
+        <div class="grid sm:grid-cols-4">
             <p>Agregar movimientos</p>
-            <button type="button" (click)="showMoveForm()" class="btn btn-s w-11">
-                <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
-            </button>
-            <div class="col-span-2 flex flex-row"></div>
-                <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
-                    @for(move of this.pokemonForm.value.pokemonMoves; track move) {
-                    <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{move.name}}</p>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-4">
-            <p>Agregar locaciones</p>
-            <button type="button" (click)="showLocationForm()" class="btn btn-s w-11">
+            <button type="button" (click)="showMoveModal = true" class="btn btn-s w-11">
                 <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
             </button>
             <div class="col-span-2 flex flex-row">
-                <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
-                    @for(location of this.pokemonForm.value.pokemonLocations; track location) {
-                    <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{location.name}}</p>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-4">
-            <p>Agregar juegos</p>
-            <button type="button" (click)="showGameForm()"class="btn btn-s w-11">
-                <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
-            </button>
-
-            <div class="col-span-2 flex flex-row">
-                <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
-                    @for(game of this.pokemonForm.value.pokemonGames; track game) {
-                    <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{game.name}}</p>
-                    }
-                </div>
+                @if (this.pokemonForm.value.pokemonHabilities?.length) {
+                    <div class="flex space-x-1 sm:space-x-1 overflow-auto">
+                        @for(move of this.pokemonForm.value.pokemonMoves; track move) {
+                        <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{move.name}}</p>
+                        }
+                    </div>
+                }
             </div>
         </div>
     
+
+        <div class="grid sm:grid-cols-4">
+            <p>Agregar locaciones</p>
+            <button type="button" (click)="showLocationModal = true" class="btn btn-s w-11">
+                <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
+            </button>
+            <div class="col-span-2 flex flex-row">
+                @if (this.pokemonForm.value.pokemonHabilities?.length) {
+                    <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
+                        @for(location of this.pokemonForm.value.pokemonLocations; track location) {
+                        <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{location.name}}</p>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="grid sm:grid-cols-4">
+            <p>Agregar juegos</p>
+            <button type="button" (click)="showGameModal = true" class="btn btn-s w-11">
+                <i class="fa-solid fa-plus fa-xs sm:fa-xl"></i>
+            </button>
+
+            <div class="col-span-2 flex flex-row">
+                @if (this.pokemonForm.value.pokemonHabilities?.length) {
+                    <div class="flex space-x-1 sm:space-x-1 overflow-x-auto">
+                        @for(game of this.pokemonForm.value.pokemonGames; track game) {
+                        <p class="bg-slate-600 text-white h-4 sm:h-6 lg:h-7 px-2 rounded-md">{{game.name}}</p>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
     <div class="flex justify-center">
-        <button type="submit" class="btn btn-s"
-            [disabled]="this.pokemonForm.invalid">
+        <button type="submit" class="btn btn-s" [disabled]="this.pokemonForm.invalid">
             Guardar Pokemon
         </button>
     </div>
-
-    <!-- <div class="flex justify-center mt-4 ng-invalid">
-        <button type="button" class="btn btn-p" (click)="logForm()">
-            log form
-        </button>
-    </div> -->
-
 </form>
 
 
 
 <!-- Ability modal -->
-<div [ngClass]="abilityModalDisplay" class="fixed bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
-    <div class="relative mx-2 bg-white rounded-lg shadow dark:bg-slate-400">
+@if (showAbilityModal) {
+<div class="fixed flex bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
+    <div class="relative mx-2 rounded-lg shadow dark:bg-slate-400 w-4/5 sm:w-1/2 xl:w-1/3">
         <!-- Header -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
             <h4>Agregar habilidad al pokemon</h4>
-            <button type="button" (click)="hideAbilityForm()"
-                class=" bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
+            <button type="button" (click)="showAbilityModal = false"
+                class="translate-x-3 -translate-y-3 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                <i class="fas fa-x"></i>
                 <span class="sr-only">Close modal</span>
             </button>
         </div>
         <!-- Body -->
-        <app-ability-form (ability)="saveAbility($event)"></app-ability-form>
+        <app-ability-form [abilityArray]="pokemonForm.controls.pokemonHabilities" (close)="showAbilityModal = false"></app-ability-form>
     </div>
 </div>
+}
 
 <!-- Move modal -->
-<div [ngClass]="moveModalDisplay" class="fixed bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
-    <div class="relative mx-2 bg-white rounded-lg shadow dark:bg-slate-400">
-        <!-- Header -->
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h4>Agregar movimiento al pokemon</h4>
-            <button type="button" (click)="hideMoveForm()"
-                class=" bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
+ @if (showMoveModal) {
+    <div class="fixed flex bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
+        <div class="relative mx-2 rounded-lg shadow dark:bg-slate-400 w-4/5 sm:w-1/2 xl:w-1/3">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h4>Agregar movimiento al pokemon</h4>
+                <button type="button" (click)="showMoveModal = false"
+                    class="translate-x-3 -translate-y-3 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <i class="fas fa-x"></i>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Body -->
+            <app-move-form [moveArray]="pokemonForm.controls.pokemonMoves" (close)="showMoveModal = false"></app-move-form>
         </div>
-        <!-- Body -->
-        <app-move-form (move)="saveMove($event)"></app-move-form>
     </div>
-</div>
+ }
 
 <!-- Location modal -->
-<div [ngClass]="locationModalDisplay" class="fixed bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
-    <div class="relative mx-2 bg-white rounded-lg shadow dark:bg-slate-400">
-        <!-- Header -->
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h4>Agregar locación al pokemon</h4>
-            <button type="button" (click)="hideLocationForm()"
-                class=" bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
+ @if (showLocationModal) {
+    <div class="fixed flex bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
+        <div class="relative mx-2 rounded-lg shadow dark:bg-slate-400 w-4/5 sm:w-1/2 xl:w-1/3">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h4>Agregar locación al pokemon</h4>
+                <button type="button" (click)="showLocationModal = false"
+                    class="translate-x-3 -translate-y-3 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <i class="fas fa-x"></i>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Body -->
+            <app-location-form [locationArray]="pokemonForm.controls.pokemonLocations" (close)="showLocationModal = false"></app-location-form>
         </div>
-        <!-- Body -->
-        <app-location-form (location)="saveLocation($event)"></app-location-form>
     </div>
-</div>
+ }
 
 <!-- Game modal -->
-<div [ngClass]="gameModalDisplay" class="fixed bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
-    <div class="relative mx-2 bg-white rounded-lg shadow dark:bg-slate-400">
-        <!-- Header -->
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h4>Agregar juego al pokemon</h4>
-            <button type="button" (click)="hideGameForm()"
-                class=" bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
+@if (showGameModal) {
+    <div class="fixed flex bg-black/70 top-0 right-0 left-0 justify-center items-center w-full h-screen">
+        <div class="relative mx-2 rounded-lg shadow dark:bg-slate-400 w-4/5 sm:w-2/3 lg:w-1/2 xl:w-1/3">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h4>Agregar juego al pokemon</h4>
+                <button type="button" (click)="showGameModal = false"
+                    class="translate-x-3 -translate-y-3 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <i class="fas fa-x"></i>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Body -->
+            <app-game-form [gameArray]="pokemonForm.controls.pokemonGames" (close)="showGameModal = false"></app-game-form>
         </div>
-        <!-- Body -->
-        <app-game-form (game)="saveGame($event)"></app-game-form>
     </div>
-</div>
+}
+
+<!-- <button type="button" class="btn btn-s" (click)="logForm()">
+    LOG
+</button> -->
