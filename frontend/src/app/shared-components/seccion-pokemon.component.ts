@@ -5,10 +5,10 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class="mx-auto max-w-7xl px-8">
-      <p class="font-bold text-gray-900 sm:text-2xl">{{title}}</p>
+    <div class="mx-auto">
+      <div class="text-base sm:text-xl md:text-2xl 2xl:text-3xl text-center font-bold text-gray-900">{{title}}</div>
       <div class="flex flex-row justify-center">
-        <dl class="flex mt-5 space-x-4 p-2 overflow-x-auto text-nowrap">
+        <dl class="flex mt-3 sm:mt-5 space-x-2 sm:space-x-4 overflow-x-auto text-nowrap">
           <ng-content class="items-center"></ng-content>
         </dl>
       </div>

@@ -1,13 +1,13 @@
-<div class="group relative border-2 border-gray-500 rounded-lg overflow-hidden min-w-48 min-h-12" [ngClass]="[backgroundColor]" >
-  <div class="absolute top-1 left-1 h-7 w-7">
-    <i class="fa-solid {{iconName}} fa-xl {{iconColor}}" ></i>
+<div class="group relative border-2 border-gray-500 rounded-lg overflow-hidden w-44 sm:w-56 md:w-72" [ngClass]="[backgroundColor]" >
+  <div class="absolute top-1 left-1">
+    <i class="fa-solid {{iconName}} fa-lg {{iconColor}}" ></i>
   </div>
-  <div class="bg-white mx-9 p-2">
-    <dt class="capitalize text-base font-semibold leading-7 text-gray-900 items-center">
+  <div class="bg-white p-1 mx-8 sm:p-2">
+    <dt class="capitalize text-xs sm:text-base font-semibold text-gray-900 text-center">
       {{titulo}}
     </dt>
     @if (descripcion && descripcion.length > 0) {
-      <dd class="mt-2 text-base leading-7 text-gray-600 text-wrap w-60 text-left">{{descripcion}}</dd>
+      <dd class="sm:mt-2 text-xs sm:text-base text-gray-600 text-wrap text-left">{{descripcion}}</dd>
     }
   </div>
 </div>

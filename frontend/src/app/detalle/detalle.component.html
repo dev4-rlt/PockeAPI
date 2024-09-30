@@ -1,29 +1,29 @@
-<div class="bg-gray-50 sm:py-12 rounded-md m-10 sm:m-20 p-10 space-y-10">
+<div class="m-10 sm:m-20 p-10 sm:px-20 space-y-5 sm:space-y-10 bg-gray-50 rounded-md">
   @if (this.details) {
 
     <!-- Características y estadísticas -->
-    <div>
-      <div class="flex items-center justify-evenly">
-        <img src={{this.details.spriteFrontDefault}} alt={{this.details.name}} width="250px" class="object-fill">
-        <h2 class="uppercase text-gray-900">
+    <div class="space-y-3 sm:space-y-4">
+      <div class="grid grid-cols-3 items-center">
+        <img src={{this.details.spriteFrontDefault}} alt={{this.details.name}} class="w-full">
+        <div class="text-center text-gray-900 text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold">
           {{this.details.name}}
-        </h2>
-        <img src={{this.details.spriteFrontShiny}} alt={{this.details.name}} width="250px" class="object-fill">
+        </div>
+        <img src={{this.details.spriteFrontShiny}} alt={{this.details.name}} class="w-full">
       </div>
 
-      <div class="mx-auto grid gap-8 lg:grid-cols-2">
-        <div class="rounded-lg p-4 bg-blue-300 border-gray-400 border-2">
-          <h3 class="text-gray-900 sm:text-2xl mt-5">Características</h3>
-          <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
+      <div class="grid lg:grid-cols-2 gap-5 lg:gap-8 mx-auto">
+        <div class="px-10 py-4 2xl:px-14 2xl:py-10 rounded-lg bg-blue-300 border-gray-400 border-2">
+          <h3 class="text-gray-900 text-base sm:text-xl md:text-2xl 2xl:text-3xl text-center">Características</h3>
+          <dl class="mt-4 sm:mt-6 lg:mt-10 grid grid-cols-1 gap-y-2 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-4 lg:gap-x-10 md:gap-y-6">
             <app-stat-pokemon name="ID" [value]="this.details.codPokemon"/>
             <app-stat-pokemon name="Altura" [value]="this.details.height"/>
             <app-stat-pokemon name="Peso" [value]="this.details.weight"/>
             <app-stat-pokemon name="HP" [value]="this.details.hp" />
           </dl>
         </div>
-        <div class="rounded-lg p-4 bg-teal-300 border-gray-400 border-2">
-          <h2 class="text-gray-900 sm:text-2xl mt-5">Estadísticas</h2>
-          <dl class="mt-8 grid grid-cols-1 gap-x-6 sm:grid-cols-2 sm:gap-y-0 lg:gap-x-5">
+        <div class="px-10 py-4 2xl:px-14 2xl:py-10 rounded-lg bg-teal-300 border-gray-400 border-2">
+          <h2 class="text-gray-900 text-base sm:text-xl md:text-2xl 2xl:text-3xl text-center">Estadísticas</h2>
+          <dl class="mt-4 sm:mt-6 lg:mt-10 grid grid-cols-1 gap-y-2 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-4 lg:gap-x-10 md:gap-y-6">
             <app-stat-pokemon name="Attack" [value]="this.details.attack" />
             <app-stat-pokemon name="Defense" [value]="this.details.defense" />
             <app-stat-pokemon name="Special Attack" [value]="this.details.specialAttack" />
@@ -34,7 +34,7 @@
       </div>
     </div>
     
-    <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+    <hr class="border-1 border-dotted border-gray-500"><br>
 
     <!-- Habilidades -->
     <app-seccion-pokemon title="Habilidades" >
@@ -49,14 +49,14 @@
           />
         }
       } @else {
-        <div class="size-10 w-96">Sus habilidades no han sido registradas</div>
+        <div class="text-xs sm:text-base">Sus habilidades no han sido registradas.</div>
       }
       </app-seccion-pokemon>
     
-    <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+      <hr class="border-1 border-dotted border-gray-500"><br>
 
     <!-- Movimientos -->
-    <app-seccion-pokemon title="Movimientos" >
+    <app-seccion-pokemon title="Movimientos">
       @if (details.pokemonMoves.length > 0) {
         @for (move of details.pokemonMoves; track move.moveCod) {
         <app-detalle-pokemon
@@ -67,11 +67,11 @@
           backgroundColor="bg-violet-300" />
         }
       } @else {
-        <div class="size-10 w-96">Sus movimientos no han sido registrados</div>
+        <div class="text-xs sm:text-base">Sus movimientos no han sido registrados.</div>
       }
     </app-seccion-pokemon>
 
-    <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+    <hr class="border-1 border-dotted border-gray-500"><br>
 
     <!-- Lugares -->
     <app-seccion-pokemon title="¿Dónde encontrarlo?">
@@ -85,11 +85,11 @@
           />
         }
       } @else {
-        <div class="size-10 w-96">No existe información de dónde encontrarlo</div>
+        <div class="text-xs sm:text-base">No existe información de dónde encontrarlo.</div>
       }
     </app-seccion-pokemon>
     
-    <hr class="border-1 border-dotted border-gray-500 max-w-7xl mx-auto">
+    <hr class="border-1 border-dotted border-gray-500"><br>
 
     <!-- Juegos -->
     <app-seccion-pokemon title="Juegos en los que aparece" >
@@ -103,7 +103,7 @@
           />
         }
       } @else {
-        <div class="size-10 w-96">No existe información de juegos en los que aparece</div>
+        <div class="text-xs sm:text-base">No existe información de juegos en los que aparece.</div>
       }
     </app-seccion-pokemon>
     }
