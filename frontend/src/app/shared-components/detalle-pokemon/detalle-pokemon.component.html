@@ -3,11 +3,11 @@
     <i class="fa-solid {{iconName}} fa-lg {{iconColor}}" ></i>
   </div>
   <div class="bg-white p-1 mx-8 sm:p-2">
-    <dt class="capitalize text-xs sm:text-base font-semibold text-gray-900 text-center">
+    <h5 class="capitalize font-semibold text-center">
       {{titulo}}
-    </dt>
+    </h5>
     @if (descripcion && descripcion.length > 0) {
-      <dd class="sm:mt-2 text-xs sm:text-base text-gray-600 text-wrap text-left">{{descripcion}}</dd>
+      <p class="text-gray-600 text-wrap">{{descripcion}}</p>
     }
   </div>
 </div>

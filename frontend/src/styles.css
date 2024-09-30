@@ -4,37 +4,45 @@
 
 @layer base {
     h1 {
-        @apply font-bold text-4xl;
+        @apply font-bold text-2xl sm:text-3xl lg:text-4xl;
     }
 
     h2 {
-        @apply font-bold text-3xl;
+        @apply font-bold text-xl sm:text-2xl lg:text-3xl;
     }
 
     h3 {
-        @apply font-bold text-2xl;
+        @apply font-bold text-base sm:text-xl lg:text-2xl;
     }
 
     h4 {
-        @apply font-bold text-xl;
+        @apply font-bold text-sm sm:text-lg lg:text-xl;
     }
 
     h5 {
-        @apply font-bold text-lg;
+        @apply font-bold text-xs sm:text-base lg:text-lg;
+    }
+
+    p {
+        @apply text-xs sm:text-base;
     }
 
     body {
         @apply bg-red-500;
     }
+
+    label {
+        @apply text-sm sm:text-base;
+    }
 }
 
 @layer components {
     .form-control {
-        @apply block w-full rounded-md py-1 px-2 focus:ring-yellow-500 focus:ring-2 focus:border-yellow-700 border-2 border-gray-600;
+        @apply block w-full text-sm sm:text-base rounded-md py-1 px-2 focus:ring-yellow-500 focus:ring-2 focus:border-yellow-700 border-2 border-gray-600;
     }
 
     .btn {
-        @apply rounded-lg px-4 py-2 font-semibold disabled:bg-gray-500 disabled:hover:bg-gray-600;
+        @apply rounded-lg px-4 py-2 font-semibold text-sm sm:text-base disabled:bg-gray-500 disabled:hover:bg-gray-600;
     }
 
     .btn-p {
