@@ -9,7 +9,7 @@
       <div class="mx-8 w-full gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         @for (pokemon of basePokemons; track pokemon.codPokemon) {
           <div (click)="showPokemon(pokemon.codPokemon)"
-            class="rounded-lg font-semibold text-xs sm:text-sm md:text-base text-white relative py-4 px-5 bg-blue-900 hover:bg-blue-700 text-center transition-all hover:scale-105 cursor-pointer" 
+            class="rounded-lg text-wrap font-semibold text-xs sm:text-sm md:text-base text-white relative py-4 px-5 bg-blue-900 hover:bg-blue-700 text-center transition-all hover:scale-105 cursor-pointer" 
             [ngClass]="{'scale-105 bg-blue-700 -rotate-2': selectedPokemon == pokemon.codPokemon}">
 
             @if (selectedPokemon == pokemon.codPokemon) {
