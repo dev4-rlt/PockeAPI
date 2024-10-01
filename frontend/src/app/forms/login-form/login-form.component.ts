@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit(){
-    if (this.loginForm.status == 'VALID') {
+    if (this.loginForm.valid) {
       const credentials: LoginUser = {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password
@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
         next: res => {
           this.storageService.name = res.name;
           this.storageService.address = res.address;
-          this.router.navigate(['dashboard'])
+          this.router.navigate(['mostrador'])
         }, error: err => {
           console.log(err);
           alert("Credenciales incorrectas");

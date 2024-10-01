@@ -57,6 +57,10 @@
         @apply bg-red-800 hover:bg-red-700 text-white;
     }
 
+    .btn-navbar {
+        @apply px-4 py-2 font-semibold text-sm sm:text-base text-center text-white;
+    }
+
     .btn-transparent {
         @apply disabled:cursor-not-allowed disabled:text-gray-500;
     }

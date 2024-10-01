@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from "../forms/login-form/login-form.component";
+import { NavbarComponent } from '../shared-components/navbar/navbar.component';
 
 @Component({
-  selector: 'app-reactive',
+  selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, LoginFormComponent],
-  templateUrl: './reactive.component.html'
+  imports: [ReactiveFormsModule, LoginFormComponent, NavbarComponent],
+  templateUrl: './login.component.html'
 })
-export class ReactiveComponent implements OnInit {
+export class LoginComponent implements OnInit {
+
   ngOnInit(): void {
     document.title = 'Inicio de Sesión';
   }
+
 }

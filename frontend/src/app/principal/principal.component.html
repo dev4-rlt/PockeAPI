@@ -1,0 +1,9 @@
+<div>
+    <app-pokemon-list (codOutput)="codPokemon = $event;"></app-pokemon-list>
+</div>
+<section id="details-section">
+    @if (codPokemon) {
+        <app-pokemon-info [codPokemon]="codPokemon"/>
+    }
+</section>
+<router-outlet ></router-outlet>

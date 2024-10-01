@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { MostradorComponent } from './mostrador/mostrador.component';
-import { SaludoComponent } from './saludo/saludo.component';
-import { ReactiveComponent } from './reactive/reactive.component';
+import { PrincipalComponent } from './principal/principal.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
-    { path: '', component: SaludoComponent },
-    { path: 'mostrador', component: MostradorComponent },
-    { path: 'login', component: ReactiveComponent },
+    { path: '', component: HomeComponent },
+    { path: 'mostrador', component: PrincipalComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent }
 ];

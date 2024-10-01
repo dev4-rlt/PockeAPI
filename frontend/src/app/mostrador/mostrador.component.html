@@ -1,9 +1,0 @@
-<div>
-    <app-listado (codOutput)="codPokemon = $event;"></app-listado>
-</div>
-<section id="details-section">
-    @if (codPokemon) {
-        <app-detalle [codPokemon]="codPokemon"></app-detalle>
-    }
-</section>
-<router-outlet ></router-outlet>

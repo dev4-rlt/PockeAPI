@@ -7,12 +7,12 @@ import { PokeapiService } from '../services/pokeapi.service';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-  selector: 'app-detalle',
+  selector: 'app-pokemon-info',
   standalone: true,
   imports: [DetallePokemonComponent, StatPokemonComponent, SeccionPokemonComponent],
-  templateUrl: './detalle.component.html'
+  templateUrl: './pokemon-info.component.html'
 })
-export class DetalleComponent implements OnInit, OnChanges {
+export class PokemonInfoComponent implements OnInit, OnChanges {
 
   @Input({ required: true }) codPokemon!: number;
   details: PokemonDetail | null = null;

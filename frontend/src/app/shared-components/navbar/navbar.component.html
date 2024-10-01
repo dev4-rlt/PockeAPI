@@ -1,0 +1,22 @@
+<div class="w-full sm:h-16 px-10 py-3 bg-zinc-800 flex flex-row justify-between" >
+    <div class="flex flex-row divide-x-2">
+        <!-- @if(home) {
+            <div class="px-5 h-10">
+                <button class="btn-navbar" routerLink="/"><i class="fa-solid fa-house"></i> Inicio</button>
+            </div>
+        } -->
+        @if(pokemonList) {
+            <div class="px-5 h-10">
+                <button class="btn-navbar" routerLink="/mostrador"><i class="fa-solid fa-list-ul"></i> Lista de Pokemons</button>
+            </div>
+        }
+        @if(forms) {
+            <div class="px-5 h-10">
+                <button class="btn-navbar" routerLink="/dashboard"><i class="fa-solid fa-clipboard-list"></i> Formularios</button>
+            </div>
+        }
+    </div>
+    <div class="px-5 h-10">
+        <button class="btn-navbar" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
+    </div>
+</div>

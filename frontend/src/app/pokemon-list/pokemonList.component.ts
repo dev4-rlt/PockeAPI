@@ -4,16 +4,16 @@ import { RouterOutlet } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { BasePokemon } from '../interfaces/base-pokemon';
 import { NgClass } from '@angular/common';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-listado',
+  selector: 'app-pokemon-list',
   standalone: true,
   imports: [RouterOutlet, NgClass, ReactiveFormsModule],
-  templateUrl: './listado.component.html'
+  templateUrl: './pokemonList.component.html'
 })
 
-export class ListadoComponent implements OnInit {
+export class PokemonListComponent implements OnInit {
 
   @Output() codOutput = new EventEmitter<number | null>();
 
@@ -28,7 +28,7 @@ export class ListadoComponent implements OnInit {
   backButtonDisabled = true;
 
   searchForm: FormGroup = new FormGroup({
-    keyword: new FormControl<string | null>(null, Validators.required)
+    keyword: new FormControl<string>('')
   });
 
   constructor(
@@ -42,7 +42,7 @@ export class ListadoComponent implements OnInit {
 
   getPokemons() {
     let params = new HttpParams().append('page', this.pageNumber).append('per_page', this.perPage);
-    if (this.searchForm.valid) {//Se realiza una búsqueda
+    if (this.searchForm.value.keyword != '') {//Se realiza una búsqueda
       params = params.append('name', this.searchForm.value.keyword);
     }
     this.pokemonService.getPagedPokemons(params).subscribe({
