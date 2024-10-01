@@ -2,15 +2,24 @@
   @if (basePokemons != null) {
   <div class="bg-gray-50 rounded-md m-10 sm:m-20 p-10 space-y-4 sm:space-y-8">
     <h1 class="text-center">Pokemons</h1>
+
+    <form [formGroup]="searchForm" (submit)="filterPokemons()" class="flex justify-center">
+      <input for="keyword" formControlName="keyword" type="text" class="form-control w-1/4" placeholder="Busca un pokemon..." >
+      <button type="submit" class="btn btn-s ml-2"  [disabled]="this.searchForm.invalid">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+
     <div class="flex flex-row">
-      <i (click)="back()" id="backButton" class="fa-solid fa-chevron-left fa-2x my-auto"
-        [ngClass]="[backButtonColor, backButtonCursor]"></i>
+      <button class="btn-transparent" (click)="back()" id="backButton" [disabled]="backButtonDisabled">
+        <i  class="fa-solid fa-chevron-left fa-2x my-auto"></i>
+      </button>
 
       <div class="mx-8 w-full gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         @for (pokemon of basePokemons; track pokemon.codPokemon) {
           <div (click)="showPokemon(pokemon.codPokemon)"
             class="rounded-lg text-wrap font-semibold text-xs sm:text-sm md:text-base text-white relative py-4 px-5 bg-blue-900 hover:bg-blue-700 text-center transition-all hover:scale-105 cursor-pointer" 
-            [ngClass]="{'scale-105 bg-blue-700 -rotate-2': selectedPokemon == pokemon.codPokemon}">
+            [ngClass]="{'bg-black scale-105 -rotate-2': selectedPokemon == pokemon.codPokemon}">
 
             @if (selectedPokemon == pokemon.codPokemon) {
               <i class="fa-solid fa-eye fa-l absolute left-2 top-3" [ngClass]="{'-rotate-2': selectedPokemon == pokemon.codPokemon}"></i>
@@ -20,8 +29,9 @@
         }
       </div>
 
-      <i id="advanceButton" (click)="advance()" class="fa-solid fa-chevron-right fa-2x my-auto"
-        [ngClass]="[advanceButtonColor, advanceButtonCursor]"></i>
+      <button class="btn-transparent" (click)="advance()" id="advanceButton" [disabled]="advanceButtonDisabled">
+        <i class="fa-solid fa-chevron-right fa-2x my-auto"></i>
+      </button>
     </div>
   </div>
   } @else {

@@ -57,7 +57,12 @@
         @apply bg-red-800 hover:bg-red-700 text-white;
     }
 
+    .btn-transparent {
+        @apply disabled:cursor-not-allowed disabled:text-gray-500;
+    }
+
     .ng-invalid {
         @apply border-red-600;
     }
+
 }
