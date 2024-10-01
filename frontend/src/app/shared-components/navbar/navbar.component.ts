@@ -1,22 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 
-  @Input() home: boolean = true;
-  @Input() pokemonList: boolean = true;
-  @Input() forms: boolean = true;
+  pokemonListDisabled: boolean = false;
+  formsDisabled: boolean = false;
 
   constructor(
     private storageService: StorageService,
-    private router: Router
+    public router: Router
   ) { }
 
   logout() {
