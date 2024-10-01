@@ -33,6 +33,29 @@
         <i class="fa-solid fa-chevron-right fa-2x"></i>
       </button>
     </div>
+
+    <div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <div>
+        @if(basePokemons.length > 0) {
+          <p class="text-sm md:text-base text-gray-700">
+            Mostrando del pokemon
+              <span class="font-medium">{{(pageNumber-1)*perPage + 1}}</span>
+            al
+            <span class="font-medium">{{(pageNumber-1)*perPage + basePokemons.length}}</span>
+          </p>
+        }
+
+      </div>
+      <div>
+        <p class="text-sm md:text-base text-gray-700">
+          Total de pokemons encontrados:
+          <span class="font-medium">{{this.totalPokemons}}</span>
+        </p>
+      </div>
+    </div>
+    
+
+
   </div>
   } @else {
   <h2 class="text-center mt-20">

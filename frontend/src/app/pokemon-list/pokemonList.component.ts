@@ -22,6 +22,7 @@ export class PokemonListComponent implements OnInit {
   pageNumber: number = 1;
   perPage: number = 25;
   totalPages: number = 0;
+  totalPokemons: number = 0;
   selectedPokemon: number | null = null;
 
   advanceButtonDisabled = false;
@@ -47,14 +48,12 @@ export class PokemonListComponent implements OnInit {
     }
     this.pokemonService.getPagedPokemons(params).subscribe({
       next: res => {
-        if (res.page == res.pages) {
-          this.advanceButtonDisabled = true;
-        }
-        if (res.page == 1) {
-          this.backButtonDisabled = true;
-        }
+        this.advanceButtonDisabled = res.page == res.pages;
+        this.backButtonDisabled = res.page == 1;
+        
         this.totalPages = res.pages;
         this.basePokemons = res.items;
+        this.totalPokemons = res.total;
       }, error: err => {
         this.basePokemons = null;
         console.log(err);
