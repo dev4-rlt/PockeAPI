@@ -15,7 +15,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 
 export class ListadoComponent implements OnInit {
 
-  @Output() codOutput = new EventEmitter<number>();
+  @Output() codOutput = new EventEmitter<number | null>();
 
   basePokemons: BasePokemon[] | null = null;
   
@@ -103,6 +103,11 @@ export class ListadoComponent implements OnInit {
   }
   
   showPokemon(codPokemon: number) {
+    if (this.selectedPokemon == codPokemon) {
+      this.selectedPokemon = null;
+      this.codOutput.emit(null);
+      return
+    }
     this.selectedPokemon = codPokemon;
     this.codOutput.emit(codPokemon);
   }

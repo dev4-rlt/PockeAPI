@@ -19,7 +19,7 @@
         @for (pokemon of basePokemons; track pokemon.codPokemon) {
           <div (click)="showPokemon(pokemon.codPokemon)"
             class="rounded-lg text-wrap font-semibold text-xs sm:text-sm md:text-base text-white relative py-4 px-5 bg-blue-900 hover:bg-blue-700 text-center transition-all hover:scale-105 cursor-pointer" 
-            [ngClass]="{'bg-black scale-105 -rotate-2': selectedPokemon == pokemon.codPokemon}">
+            [ngClass]="{'bg-blue-700 scale-105 -rotate-2': selectedPokemon == pokemon.codPokemon}">
 
             @if (selectedPokemon == pokemon.codPokemon) {
               <i class="fa-solid fa-eye fa-l absolute left-2 top-3" [ngClass]="{'-rotate-2': selectedPokemon == pokemon.codPokemon}"></i>
