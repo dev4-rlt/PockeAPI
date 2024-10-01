@@ -68,7 +68,8 @@ class PokemonsResource(Resource):
         query = db.session.query(Pokemons)
 
         if 'name' in args and args['name'] != None:
-            query = query.filter(Pokemons.name.like('%'+args['name']+'%'))
+            query = query.filter(Pokemons.name.ilike('%'+args['name']+'%'))
+            #query = query.filter(Pokemons.name.like('%'+args['name']+'%')) #Case sensitive
         
         #query = query.order_by(Pokemons.codPokemon.desc())
         query = query.order_by(Pokemons.codPokemon)
