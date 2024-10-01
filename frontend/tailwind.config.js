@@ -6,6 +6,9 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms')
+  ],
+  safelist: [
+    'ng-invalid'
   ]
 }
 
