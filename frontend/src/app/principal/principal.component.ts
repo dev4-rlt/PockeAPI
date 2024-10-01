@@ -14,16 +14,7 @@ import { StorageService } from '../services/storage.service';
 export class PrincipalComponent implements OnInit {
   codPokemon: number | null = null;
 
-  constructor(
-    private storageService: StorageService,
-    private router: Router
-  ) {
-  }
-
   ngOnInit(): void {
-    if (this.storageService.name == '') {
-      this.router.navigate(['login']);
-    }
     document.title = 'Lista de Pokemons';
   }
 

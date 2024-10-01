@@ -39,6 +39,8 @@ export class PokemonFormComponent {
   showLocationModal: boolean = false;
   showGameModal: boolean = false;
 
+  saving: boolean = false;
+
   constructor(
     private pokemonService: PokeapiService
   ) { }
@@ -49,13 +51,16 @@ export class PokemonFormComponent {
   // })
 
   createPokemon() {
+    this.saving = true;
     this.pokemonService.postCompletePokemon(this.pokemonForm.value as any).subscribe({
       next: res => {
         this.pokemonForm.reset();
         alert('El pokemon ' + res.name + ' ha sido guardado con éxito');
+        this.saving = false;
       }, error: err => {
         console.log(err);
         alert("Ha ocurrido un error inesperado durante la creación del pokemon, vuelva a intentarlo");
+        this.saving = false;
       }
     });
   }

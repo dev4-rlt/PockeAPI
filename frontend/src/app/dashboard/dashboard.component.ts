@@ -15,13 +15,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.storageService.name == '') {
-      this.router.navigate(['login']);
-    }
     document.title = 'Dashboard';
     this.name = this.storageService.name;
     this.address = this.storageService.address;

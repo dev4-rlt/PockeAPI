@@ -118,7 +118,7 @@
     </div>
 
     <div class="flex justify-center">
-        <button type="submit" class="btn btn-s" [disabled]="this.pokemonForm.invalid">
+        <button type="submit" class="btn btn-s" [disabled]="this.pokemonForm.invalid || saving">
             Guardar Pokemon
         </button>
     </div>
